@@ -1,0 +1,44 @@
+.primaryBtn {
+	height: 2.5rem;
+	border-radius: 16px;
+	cursor: pointer;
+	width: 80%;
+	background-color: var(--common-text);
+	border: none;
+	transition: all 0.3s linear;
+	font-weight: 700;
+	a {
+		color: black;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+	}
+	&:hover {
+		background-color: var(--highlighted-text);
+	}
+}
+
+.secondaryBtn {
+	height: 2.5rem;
+	border-radius: 16px;
+	cursor: pointer;
+	width: 68%;
+	border: 1px solid #4a7686;
+	background-color: transparent;
+	color: #ffffff;
+	transition: all 0.3s linear;
+	a {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+		color: white;
+	}
+	&:hover {
+		color: white;
+		background-color: #f0f0f052;
+	}
+}
