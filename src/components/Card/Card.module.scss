@@ -1,0 +1,76 @@
+.cardContainer[data-type="platinum"] {
+    background: linear-gradient(0.79deg, #295869 1.78%, #202b3a 99.35%);
+}
+
+.cardContainer[data-type="platinum"] span {
+    color: #fff;
+}
+
+.cardContainer[data-type="gold"] {
+    background: linear-gradient(0.79deg, #ebbe4c 0%, #b58408 97.06%);
+}
+
+.cardContainer[data-type="gold"] span {
+    color: #fff;
+}
+
+.cardContainer[data-type="silver"] {
+    background: linear-gradient(0.79deg, #f8f8f8 25.15%, #979797 99.35%);
+}
+
+.cardContainer[data-type="silver"] span {
+    color: black;
+}
+
+.cardContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 20px auto;
+    max-width: 350px;
+    max-height: 400px;
+    aspect-ratio: 15 / 8;
+    padding: 0.8rem 0.6rem;
+    border-radius: 8px;
+    border: 1px solid black;
+    .cardHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .nfcIcon {
+            transform: rotate(90deg);
+        }
+    }
+
+    .cardNumberContainer {
+        display: flex;
+        justify-content: center;
+        span {
+            font-size: 24px;
+            font-weight: 600;
+        }
+    }
+
+    .cardHolderName,
+    .cardExpiration > div:first-child {
+        font-size: 14px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cardHolderName span:last-child {
+        text-transform: capitalize;
+    }
+
+    .cardHolderName span:first-child,
+    .cardExpiration > div:first-child span:first-child {
+        font-weight: 600;
+    }
+
+    .cardExpiration {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
