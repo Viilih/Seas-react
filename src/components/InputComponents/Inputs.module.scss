@@ -1,0 +1,14 @@
+input {
+    border: 1px solid black;
+    margin: 20px auto;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    background-color: var(--common-text);
+    margin: auto 8px; //provisório para teste
+}
+
+input:focus {
+    border: none;
+    outline: none;
+    outline: 3px solid var(--dark-blue-highlight);
+}

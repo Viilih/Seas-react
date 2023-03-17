@@ -1,10 +1,14 @@
-import React from "react";
+import { useState } from "react";
 import "./global.scss";
 import Router from "./route";
 import Transaction from "./components/Transaction/Transaction";
 import Card from "./components/Card/Card";
+import Inputs from "./components/InputComponents/Inputs";
 
 function App() {
+    const [userName, setUserName] = useState("");
+    const [userPassword, setuserPassword] = useState("");
+
     return (
         <>
             <Router />
@@ -20,6 +24,23 @@ function App() {
                 cardNumber={222222222222222}
                 holderName="Claudio Da silva"
                 expiration="02/02"
+            />
+
+            <Inputs
+                inputType="text"
+                placeholderText="Informe seu nome"
+                isRequired
+                inputName="name"
+                valueInput={userName}
+                handleChange={(currentValue) => setUserName(currentValue)}
+            />
+            <Inputs
+                inputType="password"
+                placeholderText="Informe sua senha"
+                isRequired
+                inputName="name"
+                valueInput={userPassword}
+                handleChange={(currentValue) => setuserPassword(currentValue)}
             />
         </>
     );
