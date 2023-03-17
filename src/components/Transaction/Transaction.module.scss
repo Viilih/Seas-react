@@ -1,0 +1,44 @@
+.transaction {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  padding: 1rem;
+  border-top: 1px solid var(--cyan-blue-highlight);
+  border-bottom: 1px solid var(--cyan-blue-highlight);
+  color: var(--common-text);
+  .nameData {
+    display: flex;
+    .span {
+      background-color: #295869;
+      height: auto;
+      width: 6px;
+      display: flex;
+      border-radius: 8px;
+    }
+  }
+
+  .name {
+    display: flex;
+    flex-direction: column;
+    padding-left: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-size: 20px;
+    .data {
+      font-weight: lighter;
+      font-size: 12px;
+    }
+  }
+  .valor {
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+  }
+  .valor[data-color="income"] {
+    color: var(--income-dashboard);
+  }
+  .valor[data-color="spent"] {
+    color: var(--spent-dashboard);
+  }
+}
