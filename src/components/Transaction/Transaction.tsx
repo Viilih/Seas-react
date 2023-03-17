@@ -9,6 +9,12 @@ interface ITransaction {
 }
 
 const Transaction: React.FC<ITransaction> = (ITransaction) => {
+  const valorModificado: string = ITransaction.valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   return (
     <>
       <div className={styles.transaction}>
@@ -20,7 +26,7 @@ const Transaction: React.FC<ITransaction> = (ITransaction) => {
           </div>
         </div>
         <div className={styles.valor} data-color={ITransaction.dataColor}>
-          R$ {ITransaction.valor}
+          {valorModificado}
         </div>
       </div>
     </>
