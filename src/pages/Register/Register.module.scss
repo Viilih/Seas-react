@@ -1,0 +1,75 @@
+.registerContainerPage {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	overflow-x: hidden;
+	height: 100vh;
+	width: 100vw;
+
+	.registerContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 2rem;
+		padding: 2rem 0;
+
+		.registerHeader {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 1rem;
+
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			img {
+				width: 90px;
+			}
+		}
+
+		.formContainer {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			gap: 1rem;
+			width: 100%;
+			padding: 0 20%;
+
+			input {
+				width: 100%;
+			}
+
+			input[type='number']::-webkit-outer-spin-button,
+			input[type='number']::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			.cepContainer {
+				width: 100%;
+				display: flex;
+				gap: 0.3rem;
+				justify-content: center;
+
+				input {
+					width: 50%;
+					margin: auto;
+				}
+			}
+		}
+	}
+	.imgContainer {
+		overflow: hidden;
+		padding: 2rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: var(--highlighted-text);
+
+		img {
+			max-width: 980px;
+		}
+	}
+}
