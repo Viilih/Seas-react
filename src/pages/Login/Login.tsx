@@ -1,10 +1,14 @@
 import Inputs from '../../components/InputComponents/Inputs';
 import styles from './Login.module.scss';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 import seasLogo from '../../assets/seas-logo.svg';
 import loginImg from '../../assets/login-img.png';
-import Buttons from '../../components/ButtonComponents/Buttons';
+import {
+	ButtonLink,
+	ButtonSubmit,
+} from '../../components/ButtonComponents/Buttons';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
 	const [userCpf, setUserCpf] = useState('');
@@ -38,8 +42,10 @@ const Login: React.FC = () => {
 					/>
 
 					<div className={styles.loginBtnContainer}>
-						<Buttons text="Entrar" name="primary" />
-						<Buttons text="Abrir conta" name="secondary" />
+						<ButtonSubmit text="Entrar" name="primary" btnType="submit" />
+						<ButtonLink text="Abrir conta" name="secondary">
+							<Link to="/register">Abrir conta</Link>
+						</ButtonLink>
 					</div>
 				</form>
 			</div>

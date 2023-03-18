@@ -35,8 +35,25 @@
             width: 100%;
             padding: 0 20%;
 
+            span {
+                width: 100%;
+                text-align: right;
+                margin: -8px 8px 0 0;
+                cursor: pointer;
+                color: var(--common-text);
+                transition: all 0.3s;
+
+                &:hover {
+                    color: var(--highlighted-text);
+                }
+            }
+
             input {
                 width: 100%;
+
+                &.invalid {
+                    border: 1px solid red;
+                }
             }
 
             input[type="number"]::-webkit-outer-spin-button,
@@ -51,17 +68,17 @@
                 align-items: center;
                 gap: 1rem;
                 width: 100%;
-                margin-top: 2rem;
+                margin-top: 1.5rem;
 
                 button {
-                    font-size: 1.5rem;
-                }
+                    font-size: 1.3rem;
 
-                button:first-child {
-                    width: 70%;
-                }
-                button:last-child {
-                    width: 55%;
+                    &:first-child {
+                        width: 70%;
+                    }
+                    &:last-child {
+                        width: 55%;
+                    }
                 }
             }
         }
@@ -77,6 +94,30 @@
 
         img {
             max-width: 980px;
+        }
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    .loginImageContainer {
+        img {
+            width: 600px;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    html {
+        font-size: 14px;
+    }
+    .loginContainerPage {
+        display: grid;
+        grid-template-columns: 1fr;
+        overflow: hidden;
+        height: 100vh;
+        width: 100vw;
+        .loginImageContainer {
+            display: none;
         }
     }
 }
