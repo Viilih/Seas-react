@@ -2,8 +2,9 @@ import React from 'react';
 import styles from './Register.module.scss';
 import registerImg from '../../assets/register-image.svg';
 import Inputs from '../../components/InputComponents/Inputs';
-import Buttons from '../../components/ButtonComponents/Buttons';
+import PlanSelected from '../../components/PlanSelected/PlanSelected';
 import seasLogo from '../../assets/seas-logo.svg';
+import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
 import { useState } from 'react';
 
 const Register: React.FC = () => {
@@ -18,28 +19,13 @@ const Register: React.FC = () => {
 	const [userNumero, setUserNumero] = useState('');
 	const [userSenha, setUserSenha] = useState('');
 
-	// 	<input
-	// 	className={styles.inputsDefaultStyle}
-	// 	name={inputName}
-	// 	type={inputType}
-	// 	placeholder={placeholderText}
-	// 	required={isRequired}
-	// 	value={valueInput}
-	// 	onChange={(e) => handleChange(e.target.value)}
-	// />
-	// <Inputs
-	// 					inputName="cpf"
-	// 					inputType="number"
-	// 					isRequired
-	// 					placeholderText="CPF"
-	// 					valueInput={userCpf}
-	// 					handleChange={currentValue => setUserCpf(currentValue)}
-	// 				/>
-
 	return (
 		<div className={styles.registerContainerPage}>
 			<div className={styles.registerContainer}>
 				<div className={styles.registerHeader}>
+					<div className={styles.cardSelectedContainer}>
+						<PlanSelected plan="platinum" title="Você selecionou:" />
+					</div>
 					<img src={seasLogo} alt="logo do SeasBank" />
 					<h1>SeasBank</h1>
 				</div>
@@ -139,7 +125,7 @@ const Register: React.FC = () => {
 						isRequired
 						handleChange={e => setUserSenha(e)}
 					/>
-					<Buttons text="Entrar" name="primary" />
+					<ButtonSubmit text="Entrar" name="primary" btnType="submit" />
 				</form>
 			</div>
 			<div className={styles.imgContainer}>
