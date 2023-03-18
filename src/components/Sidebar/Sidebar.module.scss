@@ -1,0 +1,13 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.icon {
+  scale: 1.5;
+  display: flex;
+  position: absolute;
+  bottom: 5rem;
+}

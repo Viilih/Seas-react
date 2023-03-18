@@ -1,27 +1,30 @@
 :root {
-    --dark-background: #0e131f;
-    --light-background: #202b3a;
-    --highlighted-text: #ffffff;
-    --common-text: #e0e0e0;
-    --dark-blue-highlight: #0084a4;
-    --cyan-blue-highlight: #93d1e8;
-    --income-dashboard: #4bac72;
-    --spent-dashboard: #ac4b51;
-    --silver-card: #f0f0f0;
-    --gold-card: #ebb62d;
-    --platinum-card: #4a7686;
+  --dark-background: #0e131f;
+  --light-background: #202b3a;
+  --highlighted-text: #ffffff;
+  --common-text: #e0e0e0;
+  --dark-blue-highlight: #0084a4;
+  --cyan-blue-highlight: #93d1e8;
+  --income-dashboard: #4bac72;
+  --spent-dashboard: #ac4b51;
+  --silver-card: #f0f0f0;
+  --gold-card: #ebb62d;
+  --platinum-card: #4a7686;
 }
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style: none;
-    text-decoration: none;
-    font-family: "Quicksand", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+  font-family: "Quicksand", sans-serif;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
 body {
-    background-color: var(--light-background);
-    color: var(--highlighted-text);
+  background-color: var(--light-background);
+  color: var(--highlighted-text);
 }
