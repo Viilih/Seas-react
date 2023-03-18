@@ -3,7 +3,7 @@ import styles from "./Card.module.scss";
 import { AiOutlineWifi } from "react-icons/ai";
 import { FcSimCardChip } from "react-icons/fc";
 
-import seasLogo from "./seas-logo.svg";
+import seasLogo from "../../assets/seas-logo.svg";
 
 interface ICardProps {
     cardNumber: number;
