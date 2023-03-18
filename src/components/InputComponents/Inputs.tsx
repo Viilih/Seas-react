@@ -1,42 +1,86 @@
-import styles from "./Inputs.module.scss";
+import { FocusEventHandler } from 'react';
+import styles from './Inputs.module.scss';
 
 interface IinputsProps {
-    inputName: string;
-    inputType: string;
-    placeholderText: string;
-    isRequired: boolean;
-    valueInput: string;
-    handleChange: (currentValue: string) => void;
-    inputPattern?: string;
-    inputMaxLength?: number | undefined;
-    inputMinLength?: number | undefined;
+	inputName: string;
+	inputType: string;
+	placeholderText: string;
+	isRequired: boolean;
+	valueInput: string;
+	handleChange: (currentValue: string) => void;
+	inputPattern?: string;
+	inputMaxLength?: number | undefined;
+	inputMinLength?: number | undefined;
 }
 
+interface IcepInputsProps {
+	inputName: string;
+	inputType: string;
+	placeholderText: string;
+	isRequired: boolean;
+	valueInput: string;
+	inputPattern?: string;
+	inputMaxLength?: number | undefined;
+	inputMinLength?: number | undefined;
+	handleChange: (currentValue: string) => void;
+	handleBlur: (cep: string) => void;
+}
+
+export const CepInputs = ({
+	inputName,
+	inputType = 'text',
+	placeholderText,
+	isRequired = true,
+	valueInput,
+	handleChange,
+	inputPattern,
+	inputMaxLength,
+	inputMinLength,
+
+	handleBlur,
+}: IcepInputsProps) => {
+	return (
+		<input
+			className={styles.inputsDefaultStyle}
+			name={inputName}
+			type={inputType}
+			placeholder={placeholderText}
+			required={isRequired}
+			value={valueInput}
+			onChange={e => handleChange(e.target.value)}
+			pattern={inputPattern}
+			maxLength={inputMaxLength}
+			minLength={inputMinLength}
+			onBlur={() => handleBlur(valueInput)}
+		/>
+	);
+};
+
 const Inputs = ({
-    inputName,
-    inputType = "text",
-    placeholderText,
-    isRequired = true,
-    valueInput,
-    handleChange,
-    inputPattern,
-    inputMaxLength,
-    inputMinLength,
+	inputName,
+	inputType = 'text',
+	placeholderText,
+	isRequired = true,
+	valueInput,
+	handleChange,
+	inputPattern,
+	inputMaxLength,
+	inputMinLength,
 }: IinputsProps) => {
-    return (
-        <input
-            className={styles.inputsDefaultStyle}
-            name={inputName}
-            type={inputType}
-            placeholder={placeholderText}
-            required={isRequired}
-            value={valueInput}
-            onChange={(e) => handleChange(e.target.value)}
-            pattern={inputPattern}
-            maxLength={inputMaxLength}
-            minLength={inputMinLength}
-        />
-    );
+	return (
+		<input
+			className={styles.inputsDefaultStyle}
+			name={inputName}
+			type={inputType}
+			placeholder={placeholderText}
+			required={isRequired}
+			value={valueInput}
+			onChange={e => handleChange(e.target.value)}
+			pattern={inputPattern}
+			maxLength={inputMaxLength}
+			minLength={inputMinLength}
+		/>
+	);
 };
 
 export default Inputs;

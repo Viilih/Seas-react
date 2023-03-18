@@ -5,7 +5,8 @@ import Inputs from '../../components/InputComponents/Inputs';
 import PlanSelected from '../../components/PlanSelected/PlanSelected';
 import seasLogo from '../../assets/seas-logo.svg';
 import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { CepInputs } from '../../components/InputComponents/Inputs';
 
 const Register: React.FC = () => {
 	const [userName, setUserName] = useState('');
@@ -15,9 +16,65 @@ const Register: React.FC = () => {
 	const [userLogradouro, setUserLogradouro] = useState('');
 	const [userBairro, setUserBairro] = useState('');
 	const [userLocalidade, setUserLocalidade] = useState('');
+	const [userNumberResidence, setUserNumberResidence] = useState('');
 	const [userUF, setUserUF] = useState('');
 	const [userNumero, setUserNumero] = useState('');
 	const [userSenha, setUserSenha] = useState('');
+
+	const cpfRegex = `[0-9]{11}`;
+	const cepRegex = `[0-9]{8}`;
+	const numRegex = `[0-9]{1-5}`;
+	const passwordRegex = `^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$`;
+
+	const handleSubmit = (e: React.FormEvent) => {
+		e.preventDefault();
+		setUserName('');
+		setUserEmail('');
+		setUserCpf('');
+		setUserCep('');
+		setUserLogradouro('');
+		setUserBairro('');
+		setUserLocalidade('');
+		setUserNumberResidence('');
+		setUserUF('');
+		setUserNumero('');
+		setUserSenha('');
+
+		console.log(
+			'Enviado',
+			`Nome: ${userName}`,
+			`Email: ${userEmail}`,
+			`CPF: ${userCpf}`,
+			`CEP: ${userCep}`,
+			`Logradouro: ${userLogradouro}`,
+			`Bairro: ${userBairro}`,
+			`Localidade: ${userLocalidade}`,
+			`UF: ${userUF}`,
+			`Número: ${userNumero}`,
+			`Senha: ${userSenha}`
+		);
+	};
+	const buscarCep = (cep: string) => {
+		fetch(`https:viacep.com.br/ws/${cep}/json/`)
+			.then(response => response.json())
+			.then(data => {
+				if (data.erro) {
+					alert('Desculpe, não conseguimos encontrar o endereço');
+				} else {
+					console.log(data);
+
+					setUserLogradouro(data.logradouro);
+					setUserBairro(data.bairro);
+					setUserLocalidade(data.localidade);
+					setUserUF(data.uf);
+				}
+			})
+			.catch(error => {
+				console.error(error);
+				alert('Tente novamente!');
+				return;
+			});
+	};
 
 	return (
 		<div className={styles.registerContainerPage}>
@@ -30,14 +87,14 @@ const Register: React.FC = () => {
 					<h1>SeasBank</h1>
 				</div>
 
-				<form className={styles.formContainer}>
+				<form className={styles.formContainer} onSubmit={handleSubmit}>
 					<Inputs
 						inputName="nome"
 						inputType="text"
 						placeholderText="Digite seu nome completo"
 						valueInput={userName}
 						isRequired
-						handleChange={e => setUserName(e)}
+						handleChange={currentValue => setUserName(currentValue)}
 					/>
 					<Inputs
 						inputName="email"
@@ -45,24 +102,29 @@ const Register: React.FC = () => {
 						placeholderText="Digite seu email"
 						valueInput={userEmail}
 						isRequired
-						handleChange={e => setUserEmail(e)}
+						handleChange={currentValue => setUserEmail(currentValue)}
 					/>
 					<Inputs
 						inputName="cpf"
-						inputType="number"
+						inputType="text"
+						inputMaxLength={11}
 						placeholderText="Digite seu CPF"
 						valueInput={userCpf}
 						isRequired
-						handleChange={e => setUserCpf(e)}
+						handleChange={currentValue => setUserCpf(currentValue)}
+						inputPattern={cpfRegex}
 					/>
 					<div className={styles.cepContainer}>
-						<Inputs
+						<CepInputs
 							inputName="cep"
-							inputType="number"
+							inputType="text"
 							placeholderText="CEP"
 							valueInput={userCep}
 							isRequired
-							handleChange={e => setUserCep(e)}
+							handleChange={currentValue => setUserCep(currentValue)}
+							handleBlur={cep => buscarCep(cep)}
+							inputMaxLength={8}
+							inputPattern={cepRegex}
 						/>
 						<Inputs
 							inputName="logradouro"
@@ -70,7 +132,7 @@ const Register: React.FC = () => {
 							placeholderText="Logradouro"
 							valueInput={userLogradouro}
 							isRequired
-							handleChange={e => setUserLogradouro(e)}
+							handleChange={currentValue => setUserLogradouro(currentValue)}
 						/>
 					</div>
 					<div className={styles.cepContainer}>
@@ -80,7 +142,7 @@ const Register: React.FC = () => {
 							placeholderText="Bairro"
 							valueInput={userBairro}
 							isRequired
-							handleChange={e => setUserBairro(e)}
+							handleChange={currentValue => setUserBairro(currentValue)}
 						/>
 						<Inputs
 							inputName="localidade"
@@ -88,7 +150,7 @@ const Register: React.FC = () => {
 							placeholderText="Localidade"
 							valueInput={userLocalidade}
 							isRequired
-							handleChange={e => setUserLocalidade(e)}
+							handleChange={currentValue => setUserLocalidade(currentValue)}
 						/>
 					</div>
 					<div className={styles.cepContainer}>
@@ -98,32 +160,39 @@ const Register: React.FC = () => {
 							placeholderText="UF"
 							valueInput={userUF}
 							isRequired
-							handleChange={e => setUserUF(e)}
+							handleChange={currentValue => setUserUF(currentValue)}
 						/>
 						<Inputs
-							inputName="localidade"
+							inputName="numero-residencia"
 							inputType="text"
-							placeholderText="Localidade"
-							valueInput={userLocalidade}
+							placeholderText="Número de residência"
+							valueInput={userNumberResidence}
 							isRequired
-							handleChange={e => setUserLocalidade(e)}
+							inputMaxLength={5}
+							inputPattern={numRegex}
+							handleChange={currentValue =>
+								setUserNumberResidence(currentValue)
+							}
 						/>
 					</div>
 					<Inputs
 						inputName="numero"
-						inputType="number"
+						inputType="text"
 						placeholderText="Número de celular"
 						valueInput={userNumero}
 						isRequired
-						handleChange={e => setUserNumero(e)}
+						inputMaxLength={14}
+						handleChange={currentValue => setUserNumero(currentValue)}
 					/>
 					<Inputs
 						inputName="senha"
-						inputType="password"
-						placeholderText="Senhha"
+						inputType="text"
+						placeholderText="Senha"
 						valueInput={userSenha}
 						isRequired
-						handleChange={e => setUserSenha(e)}
+						handleChange={currentValue => setUserSenha(currentValue)}
+						inputMaxLength={10}
+						inputPattern={passwordRegex}
 					/>
 					<ButtonSubmit text="Entrar" name="primary" btnType="submit" />
 				</form>
