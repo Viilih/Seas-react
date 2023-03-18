@@ -67,9 +67,9 @@ export default function Sidebar() {
         </a>
 
         <div>
-          <a href="/login">
+          <Link to="/login">
             <BsArrowBarRight className={style.icon} />
-          </a>
+          </Link>
         </div>
       </Menu>
     </>
