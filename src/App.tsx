@@ -12,13 +12,12 @@ function App() {
 
   return (
     <>
-      <Sidebar />
       <Router />
       <Transaction
         nome="leonardo vasconcelo amaral"
-        valor={20}
-        data="19 fev, 21:30h"
-        dataColor="income"
+        valor={-20}
+        data="21/07"
+        dataColor="spent"
       />
 
       <Card
