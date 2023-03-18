@@ -12,12 +12,13 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
     const [userCpf, setUserCpf] = useState("");
+    const cpfRegex = `[0-9]{11}`;
+
     const [userPassword, setUserPassword] = useState("");
 
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        console.log("Enviado", userCpf, userPassword);
-        console.log(e);
+        console.log("Enviado", `CPF: ${userCpf}`, `Senha: ${userPassword}`);
     };
 
     return (
@@ -31,13 +32,16 @@ const Login = () => {
                 <form className={styles.formContainer} onSubmit={handleSubmit}>
                     <Inputs
                         inputName="cpf"
-                        inputType="number"
+                        inputType="text"
                         isRequired
-                        placeholderText="CPF"
+                        placeholderText="CPF (somente números)"
                         valueInput={userCpf}
                         handleChange={(currentValue) =>
                             setUserCpf(currentValue)
                         }
+                        inputPattern={cpfRegex}
+                        inputMinLength={11}
+                        inputMaxLength={11}
                     />
                     <Inputs
                         inputName="inputPassword"
@@ -48,6 +52,7 @@ const Login = () => {
                         handleChange={(currentValue) =>
                             setUserPassword(currentValue)
                         }
+                        inputMinLength={6}
                     />
 
                     <span>Esqueci minha senha</span>

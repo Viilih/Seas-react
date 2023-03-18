@@ -7,6 +7,9 @@ interface IinputsProps {
     isRequired: boolean;
     valueInput: string;
     handleChange: (currentValue: string) => void;
+    inputPattern?: string;
+    inputMaxLength?: number | undefined;
+    inputMinLength?: number | undefined;
 }
 
 const Inputs = ({
@@ -16,6 +19,9 @@ const Inputs = ({
     isRequired = true,
     valueInput,
     handleChange,
+    inputPattern,
+    inputMaxLength,
+    inputMinLength,
 }: IinputsProps) => {
     return (
         <input
@@ -26,6 +32,9 @@ const Inputs = ({
             required={isRequired}
             value={valueInput}
             onChange={(e) => handleChange(e.target.value)}
+            pattern={inputPattern}
+            maxLength={inputMaxLength}
+            minLength={inputMinLength}
         />
     );
 };
