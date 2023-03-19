@@ -11,6 +11,7 @@ interface IinputsProps {
 	inputPattern?: string;
 	inputMaxLength?: number | undefined;
 	inputMinLength?: number | undefined;
+	'data-testid'?: string;
 }
 
 interface IcepInputsProps {
