@@ -1,31 +1,41 @@
-// import styles from "./CurrencyExchange.module.scss";
+import { useState, useEffect } from "react";
+import styles from "./CurrencyExchange.module.scss";
 
-const CurrencyExchange = () => {
-    // const pesquisarCambio = () => {
-    //     const moedas = ["USD-BRL", "EUR-BRL", "BTC-BRL"];
+interface ICambio {
+    code: string;
+    high: string;
+    low: string;
+}
 
-    //     fetch(`https://economia.awesomeapi.com.br/last/${moedas}`)
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             if (data.error) {
-    //                 alert("Desculpe, não conseguimos informações de câmbio");
-    //             } else {
-    //                 console.log(data);
-    //             }
-    //         });
-    // };
+const CurrencyExchange: React.FC<any> = () => {
+    const [resultado, setResultado] = useState<ICambio[]>([]);
 
-    // pesquisarCambio();
+    async function pesquisarCambio() {
+        const moedas = ["USD-BRL", "EUR-BRL", "BTC-BRL"];
+        const response = await fetch(
+            `https://economia.awesomeapi.com.br/last/${moedas}`
+        );
+        const cambio = await response.json();
+        const cambioInfo = Object.values(cambio).map((item: any) => ({
+            code: item.code,
+            high: item.high,
+            low: item.low,
+        }));
+        setResultado(cambioInfo);
+    }
 
-    // // pesquisarCambio().then((cambio) => {
-    // //     let moeda = Object.keys(cambio);
-
-    // // });
+    useEffect(() => {
+        pesquisarCambio();
+    }, []);
 
     return (
-        <header>
-            {/* <span className={styles.currencyCotations}>oi</span> */}
-        </header>
+        <div className={styles.currencyInfo}>
+            {resultado.map((cambio: ICambio) => (
+                <span
+                    key={cambio.code}
+                >{`${cambio.code} / BRL Low: R$ ${cambio.low} High R$ ${cambio.high},  `}</span>
+            ))}
+        </div>
     );
 };
 

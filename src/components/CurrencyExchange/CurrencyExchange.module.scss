@@ -1,0 +1,14 @@
+.currencyInfo {
+    padding-left: calc(1rem + 42px);
+    animation: slidein infinite linear;
+    animation-duration: 30s;
+}
+
+@keyframes slidein {
+    from {
+        transform: translateX(120%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
