@@ -115,6 +115,7 @@ const Register: React.FC = () => {
             valueInput={userName}
             isRequired
             handleChange={(currentValue) => setUserName(currentValue)}
+            data-testid="input-name"
           />
           <Inputs
             inputName="email"
@@ -123,6 +124,7 @@ const Register: React.FC = () => {
             valueInput={userEmail}
             isRequired
             handleChange={(currentValue) => setUserEmail(currentValue)}
+            data-testid="input-email"
           />
           <Inputs
             inputName="cpf"
@@ -133,6 +135,7 @@ const Register: React.FC = () => {
             isRequired
             handleChange={(currentValue) => setUserCpf(currentValue)}
             inputPattern={cpfRegex}
+            data-testid="input-cpf"
           />
           <div className={styles.cepContainer}>
             <CepInputs
@@ -145,6 +148,7 @@ const Register: React.FC = () => {
               handleBlur={(cep) => buscarCep(cep)}
               inputMaxLength={8}
               inputPattern={cepRegex}
+              data-testid="input-cep"
             />
             <Inputs
               inputName="logradouro"
@@ -153,6 +157,7 @@ const Register: React.FC = () => {
               valueInput={userLogradouro}
               isRequired
               handleChange={(currentValue) => setUserLogradouro(currentValue)}
+              data-testid="input-log"
             />
           </div>
           <div className={styles.cepContainer}>
@@ -163,6 +168,7 @@ const Register: React.FC = () => {
               valueInput={userBairro}
               isRequired
               handleChange={(currentValue) => setUserBairro(currentValue)}
+              data-testid="input-bairro"
             />
             <Inputs
               inputName="localidade"
@@ -171,6 +177,7 @@ const Register: React.FC = () => {
               valueInput={userLocalidade}
               isRequired
               handleChange={(currentValue) => setUserLocalidade(currentValue)}
+              data-testid="input-loc"
             />
           </div>
           <div className={styles.cepContainer}>
@@ -181,6 +188,7 @@ const Register: React.FC = () => {
               valueInput={userUF}
               isRequired
               handleChange={(currentValue) => setUserUF(currentValue)}
+              data-testid="input-uf"
             />
             <Inputs
               inputName="numero-residencia"
@@ -193,6 +201,7 @@ const Register: React.FC = () => {
               handleChange={(currentValue) =>
                 setUserNumberResidence(currentValue)
               }
+              data-testid="input-residence-number"
             />
           </div>
           <Inputs
@@ -203,6 +212,7 @@ const Register: React.FC = () => {
             isRequired
             inputMaxLength={14}
             handleChange={(currentValue) => setUserNumero(currentValue)}
+            data-testid="input-numero"
           />
           <Inputs
             inputName="senha"
@@ -213,13 +223,19 @@ const Register: React.FC = () => {
             handleChange={(currentValue) => setUserSenha(currentValue)}
             inputMaxLength={10}
             inputPattern={passwordRegex}
+            data-testid="input-senha"
           />
 
           <span className={styles.passwordOrientationText}>
             Pelo menos 8 caracteres contendo: Uma letra maiúscula, uma
             minúscula, um número e um caractere especial
           </span>
-          <ButtonSubmit text="Entrar" name="primary" btnType="submit" />
+          <ButtonSubmit
+            text="Entrar"
+            name="primary"
+            btnType="submit"
+            data-testid="btn-submit"
+          />
         </form>
       </div>
       <div className={styles.imgContainer}>
