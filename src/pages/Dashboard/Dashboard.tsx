@@ -1,8 +1,14 @@
-import React from 'react';
-import styles from './Dashboard.module.scss';
+import React from "react";
+import CurrencyExchange from "../../components/CurrencyExchange/CurrencyExchange";
+import Sidebar from "../../components/Sidebar/Sidebar";
+import styles from "./Dashboard.module.scss";
 
 const Dashboard = () => {
-	return <></>;
+    return (
+        <div>
+            <Sidebar />
+        </div>
+    );
 };
 
 export default Dashboard;
