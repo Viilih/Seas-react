@@ -13,7 +13,7 @@ function App() {
     return (
         <>
             <Router />
-            <Sidebar />
+            {/* <Sidebar /> */}
             {/* <Transaction
         nome="leonardo vasconcelo amaral"
         valor={-20}

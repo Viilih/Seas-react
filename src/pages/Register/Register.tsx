@@ -45,8 +45,6 @@ const Register: React.FC = () => {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        const user = {};
-
         // setUserInfo(
         //         userName,
         //         userEmail,
