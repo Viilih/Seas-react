@@ -19,6 +19,8 @@ const Login = () => {
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         console.log("Enviado", `CPF: ${userCpf}`, `Senha: ${userPassword}`);
+        setUserCpf("");
+        setUserPassword("");
     };
 
     return (

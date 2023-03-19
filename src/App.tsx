@@ -7,13 +7,14 @@ import Inputs from "./components/InputComponents/Inputs";
 import Sidebar from "./components/Sidebar/Sidebar";
 
 function App() {
-  const [userName, setUserName] = useState("");
-  const [userPassword, setuserPassword] = useState("");
+    const [userName, setUserName] = useState("");
+    const [userPassword, setuserPassword] = useState("");
 
-  return (
-    <>
-      <Router />
-      <Transaction
+    return (
+        <>
+            <Router />
+            <Sidebar />
+            {/* <Transaction
         nome="leonardo vasconcelo amaral"
         valor={-20}
         data="21/07"
@@ -42,9 +43,9 @@ function App() {
         inputName="name"
         valueInput={userPassword}
         handleChange={(currentValue) => setuserPassword(currentValue)}
-      />
-    </>
-  );
+      /> */}
+        </>
+    );
 }
 
 export default App;
