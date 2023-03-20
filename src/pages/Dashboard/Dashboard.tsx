@@ -8,7 +8,7 @@ import Inputs from "../../components/InputComponents/Inputs";
 import { BsSearch } from "react-icons/bs";
 import { useState } from "react";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
     const initialTransactionData = [
         {
             transactionTitle: "cinema jung",
@@ -36,7 +36,7 @@ const Dashboard = () => {
         },
         {
             transactionTitle: "pix lucas amaral",
-            date: "2023-02-28;",
+            date: "2023-02-28",
             time: "10:00",
             category: "transference",
             type: "income",
@@ -103,7 +103,7 @@ const Dashboard = () => {
 
     return (
         <>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <header className={styles.header}>
                 <CurrencyExchange />
             </header>
@@ -136,6 +136,7 @@ const Dashboard = () => {
                             <Inputs
                                 inputName="inputSearchBar"
                                 inputType="text"
+                                dataTestid="searchbar"
                                 isRequired
                                 placeholderText="Busque por uma transação"
                                 valueInput={searchBarText}
@@ -163,7 +164,28 @@ const Dashboard = () => {
                                 }}
                             />
                         </div>
-                        <button className={styles.searchIconContainer}>
+                        <button
+                            className={styles.searchIconContainer}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                if (searchBarText != "") {
+                                    setTransactionData(
+                                        initialTransactionData.filter(
+                                            (transaction) => {
+                                                if (
+                                                    transaction.transactionTitle.match(
+                                                        searchBarText
+                                                    )
+                                                )
+                                                    return transaction;
+                                            }
+                                        )
+                                    );
+                                } else {
+                                    setTransactionData(initialTransactionData);
+                                }
+                            }}
+                        >
                             <BsSearch size={30} color="fff" />
                         </button>
                     </form>
