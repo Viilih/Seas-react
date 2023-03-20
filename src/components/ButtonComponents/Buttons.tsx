@@ -12,6 +12,7 @@ interface IButtonSubmitProps {
 	text?: string;
 	btnType: 'submit' | 'button' | 'reset' | undefined;
 	children?: React.ReactNode;
+	dataTestid?: string;
 }
 
 export const ButtonLink: React.FC<IButtonProps> = ({ children, name }) => {
@@ -28,11 +29,13 @@ export const ButtonSubmit: React.FC<IButtonSubmitProps> = ({
 	name,
 	text,
 	btnType = 'submit',
+	dataTestid,
 }) => {
 	return (
 		<button
 			className={name == 'primary' ? styles.primaryBtn : styles.secondaryBtn}
 			type={btnType}
+			data-testid={dataTestid}
 		>
 			{text}
 		</button>
