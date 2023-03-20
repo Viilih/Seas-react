@@ -8,8 +8,6 @@ import {
   ButtonLink,
   ButtonSubmit,
 } from "../../components/ButtonComponents/Buttons";
-import { Link } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [userCpf, setUserCpf] = useState("");
@@ -53,7 +51,7 @@ const Login: React.FC = () => {
   return (
     <div className={styles.loginContainerPage}>
       {toDashboard ? (
-        <Navigate to="/" />
+        (window.location.href = "/")
       ) : (
         <>
           <div className={styles.loginContainer}>
@@ -96,7 +94,7 @@ const Login: React.FC = () => {
                   btnType="submit"
                 />
                 <ButtonLink text="Abrir conta" name="secondary">
-                  <Link to="/register">Abrir conta</Link>
+                  <a href="/register">Abrir conta</a>
                 </ButtonLink>
               </div>
             </form>
