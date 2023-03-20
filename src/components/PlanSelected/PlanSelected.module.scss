@@ -6,4 +6,17 @@
         text-transform: capitalize;
         text-align: center;
     }
+
+    div[data-color="platinum"] {
+        background-color: #4a7686;
+    }
+
+    div[data-color="silver"] {
+        background-color: #f0f0f0;
+        color: black;
+    }
+
+    div[data-color="gold"] {
+        background-color: #ebb62d;
+    }
 }

@@ -101,6 +101,13 @@ const Dashboard: React.FC = () => {
     const [btnSpentState, setBtnSpentState] = useState(false);
     const [btnAllState, setBtnAllState] = useState(false);
 
+    const [userData, setUserData] = useState(
+        JSON.parse(localStorage.getItem("userInfo") || "[]")
+    );
+    console.log(userData);
+
+    // setCurrentUserData(localStorage.getItem("userInfo"))
+
     return (
         <>
             <Sidebar />
@@ -110,7 +117,7 @@ const Dashboard: React.FC = () => {
             <div className={styles.dashboardContainer}>
                 <div className={styles.userCardAndBalance}>
                     <div className={styles.userBalance}>
-                        <h2>Olá, Rafael Ramos</h2>
+                        <h2>{`Olá, ${userData[0].Nome}`}</h2>
                         <div className={styles.cardBalanceInfo}>
                             <h3>Saldo em conta</h3>
                             <div className={styles.line}></div>
@@ -121,7 +128,7 @@ const Dashboard: React.FC = () => {
                         <PlanSelected plan="platinum" title="Meu Seas" />
                         <Card
                             cardNumber={2222222222222}
-                            holderName="Rafael Ramos"
+                            holderName={userData[0].Nome}
                             expiration="02/02"
                             dataType="platinum"
                         />
