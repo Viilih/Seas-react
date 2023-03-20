@@ -75,15 +75,14 @@ const Register: React.FC = () => {
 		// Atualiza o Local Storage com o array userInfo completo
 		localStorage.setItem('userInfo', JSON.stringify(updatedUserInfo));
 
-		console.log(newUser.Numero);
-		setToDashboard(false);
+		setToDashboard(true);
 	};
 
 	const buscarCep = async (cep: string) => {
 		try {
 			const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
 			const data = await response.json();
-			if (data.erro) {
+			if (data.erro === true) {
 				alert('Desculpe, não conseguimos encontrar o endereço');
 			} else {
 				setUserLogradouro(data.logradouro);

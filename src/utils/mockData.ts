@@ -8,8 +8,8 @@ export const fakeUser = [
 		Bairro: 'Centro',
 		Localidade: 'Santana do Livramento',
 		UF: 'RS',
-		Número: '1440',
-		Celular: '55984121485',
+		NumeroResidencia: '1440',
+		Numero: '55984121485',
 		Senha: 'Coxinha123@',
 	},
 ];
