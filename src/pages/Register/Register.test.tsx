@@ -1,11 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 import user from '@testing-library/user-event';
 import Register from './Register';
 import fetchMock from 'jest-fetch-mock';
-
-import { fakeUser } from '../../utils/mockData';
-import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
 
 describe('Register', () => {
 	beforeEach(() => {
@@ -112,7 +109,7 @@ describe('Register', () => {
 		user.click(senhaInput);
 		user.keyboard('Coxinha23@');
 
-		fireEvent.click(submitButton);
+		user.click(submitButton);
 
 		const userInfo = JSON.parse(localStorage.getItem('userInfo') || '[]');
 
