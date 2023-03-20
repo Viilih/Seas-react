@@ -103,7 +103,7 @@ const Dashboard: React.FC = () => {
 
     return (
         <>
-            {/* <Sidebar /> */}
+            <Sidebar />
             <header className={styles.header}>
                 <CurrencyExchange />
             </header>
@@ -196,6 +196,7 @@ const Dashboard: React.FC = () => {
                         <h2>Suas Transações</h2>
                         <div>
                             <button
+                                data-testid="entry-btn"
                                 onClick={() => {
                                     setBtnEntryState(!btnEntryState);
                                     setBtnAllState(false);
@@ -224,6 +225,7 @@ const Dashboard: React.FC = () => {
                                 Entradas
                             </button>
                             <button
+                                data-testid="spent-btn"
                                 onClick={() => {
                                     setBtnEntryState(false);
                                     setBtnAllState(false);
@@ -254,6 +256,7 @@ const Dashboard: React.FC = () => {
                                 Saídas
                             </button>
                             <button
+                                data-testid="all-btn"
                                 onClick={() => {
                                     setBtnEntryState(false);
                                     setBtnAllState(!btnAllState);
@@ -273,7 +276,10 @@ const Dashboard: React.FC = () => {
                             </button>
                         </div>
                     </div>
-                    <div className={styles.transactions}>
+                    <div
+                        className={styles.transactions}
+                        data-testid="transaction-container"
+                    >
                         {transactionData.map((transaction) => {
                             return (
                                 <Transaction

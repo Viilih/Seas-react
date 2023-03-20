@@ -29,9 +29,10 @@ const CurrencyExchange: React.FC<any> = () => {
     }, []);
 
     return (
-        <div className={styles.currencyInfo}>
+        <div className={styles.currencyInfo} data-testid="currencies-container">
             {resultado.map((cambio: ICambio) => (
                 <span
+                    data-testid={`currency-${cambio.code}`}
                     key={cambio.code}
                 >{`${cambio.code} / BRL Low: R$ ${cambio.low} High R$ ${cambio.high},  `}</span>
             ))}
