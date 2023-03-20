@@ -61,16 +61,15 @@ export default function Sidebar() {
         <>
             <Menu styles={styles} className={style.menu}>
                 <a id="home" className="menu-item" href="/">
-                    Home
-                </a>
-
-                <a id="about" className="menu-item" href="/about">
-                    Planos
+                    Sair da conta
                 </a>
 
                 <div>
-                    <a href="/login">
-                        <BsArrowBarRight className={style.icon} />
+                    <a href="/">
+                        <BsArrowBarRight
+                            className={style.icon}
+                            title="sair da conta"
+                        />
                     </a>
                 </div>
             </Menu>
