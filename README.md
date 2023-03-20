@@ -11,11 +11,11 @@ Projeto desenvolvido através do programa vem ser da DBC Company durante o módu
 </p>
 
 <p align="center">
-  <img alt="License" src="">
+  <img alt="License" src="./public/seas-react-done.png">
 </p>
 
 <p align="center">
-  <a href="">😁 -> Acesse o deploy do projeto!</a>
+  <a href="https://seas-react.vercel.app">😁 -> Acesse o deploy do projeto!</a>
 </p>
 <br>
 
