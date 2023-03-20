@@ -7,7 +7,7 @@ interface ICambio {
     low: string;
 }
 
-const CurrencyExchange: React.FC<any> = () => {
+const CurrencyExchange: React.FC = () => {
     const [resultado, setResultado] = useState<ICambio[]>([]);
 
     async function pesquisarCambio() {
@@ -15,7 +15,7 @@ const CurrencyExchange: React.FC<any> = () => {
         const response = await fetch(
             `https://economia.awesomeapi.com.br/last/${moedas}`
         );
-        const cambio = await response.json();
+        const cambio: ICambio = await response.json();
         const cambioInfo = Object.values(cambio).map((item: any) => ({
             code: item.code,
             high: item.high,
