@@ -1,6 +1,8 @@
 import { createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../utils/api";
+import { toast } from "react-toastify";
+import { toastConfig } from "../utils/ToastConfig";
 
 interface IUserContext {
     createUser: (userData: any) => Promise<void>;
@@ -20,12 +22,15 @@ export const UserProvider = ({ children }: any) => {
             });
 
             if (response.ok) {
-                console.log(await response.json());
-                console.log("usuário cadastrado!");
+                toast.success("Usuário cadastro com sucesso");
+                navigate("/");
             } else {
-                console.log("erro no cadastrado!");
+                toast.error(
+                    "Ocorreu um erro ao cadastrar o usuário. Tente novamente!"
+                );
             }
         } catch (error) {
+            toast.error("Ocorreu um erro inesperado");
             console.error(error);
         }
     };
