@@ -1,6 +1,6 @@
 import Inputs from "../../components/InputComponents/Inputs";
 import styles from "./Login.module.scss";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
 
 import seasLogo from "../../assets/seas-logo.svg";
 import loginImg from "../../assets/login-img.png";
@@ -8,43 +8,19 @@ import {
     ButtonLink,
     ButtonSubmit,
 } from "../../components/ButtonComponents/Buttons";
+import { UserContext } from "../../context/UserContext";
 
 const Login: React.FC = () => {
+    const { authenticateUser } = useContext(UserContext);
     const [userCpf, setUserCpf] = useState("");
     const cpfRegex = `[0-9]{11}`;
 
     const [userPassword, setUserPassword] = useState("");
     const [toDashboard, setToDashboard] = useState(false);
 
-    const loginValidation = (cpf: string, password: string) => {
-        const localStorageUser = localStorage.getItem("userInfo");
-        const userInfo = JSON.parse(localStorageUser || "[]");
-
-        const userCredentials = userInfo.map(
-            (user: { CPF: string; Senha: string; Nome: string }) => ({
-                cpf: user.CPF,
-                senha: user.Senha,
-                name: user.Nome,
-            })
-        );
-
-        const currentUser = userCredentials.find(
-            (user: { cpf: string; senha: string }) =>
-                user.cpf === cpf && user.senha === password
-        );
-
-        if (currentUser) {
-            setToDashboard(true);
-        } else {
-            alert(
-                "Usuário não encontrado. Verifique os dados inseridos e tente novamente."
-            );
-        }
-    };
-
     const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
-        loginValidation(userCpf, userPassword);
+        authenticateUser(userCpf, userPassword);
     };
 
     return (
@@ -73,9 +49,6 @@ const Login: React.FC = () => {
                                 handleChange={(currentValue) =>
                                     setUserCpf(currentValue)
                                 }
-                                inputPattern={cpfRegex}
-                                inputMinLength={11}
-                                inputMaxLength={11}
                             />
                             <Inputs
                                 inputName="inputPassword"

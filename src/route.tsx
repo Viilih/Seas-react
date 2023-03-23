@@ -9,10 +9,7 @@ const Router = () => {
         <BrowserRouter>
             <UserProvider>
                 <Routes>
-                    <Route
-                        path="/createUser: (userData: any) => Promise<void>"
-                        element={<Login />}
-                    />
+                    <Route path="/" element={<Login />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/register" element={<Register />} />
                 </Routes>
