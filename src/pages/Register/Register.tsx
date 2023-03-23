@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import styles from "./Register.module.scss";
 import registerImg from "../../assets/register-image.svg";
 import Inputs from "../../components/InputComponents/Inputs";
@@ -7,21 +7,33 @@ import seasLogo from "../../assets/seas-logo.svg";
 import { ButtonSubmit } from "../../components/ButtonComponents/Buttons";
 import { useState } from "react";
 import { CepInputs } from "../../components/InputComponents/Inputs";
+import { UserContext } from "../../context/UserContext";
 
 const Register: React.FC = () => {
     const [toDashboard, setToDashboard] = useState(false);
+    const { createUser } = useContext(UserContext);
     const initialUserInfo = [
         {
-            Nome: "",
-            Email: "",
-            CPF: "",
-            CEP: "",
-            Logradouro: "",
-            Bairro: "",
-            Localidade: "",
-            UF: "",
-            Numero: "",
-            Senha: "",
+            usuarioCreateDTO: {
+                login: "",
+                senha: "",
+            },
+            clienteCreateDTO: {
+                nome: "",
+                cpf: "",
+            },
+            contatoCreateDTO: {
+                email: "",
+                telefone: "",
+            },
+            enderecoCreateDTO: {
+                logradouro: "",
+                cidade: "",
+                pais: "Brasil",
+                estado: "",
+                cep: "",
+                numero: 0,
+            },
         },
     ];
     const [userInfo, setUserInfo] = useState(initialUserInfo);
@@ -55,27 +67,36 @@ const Register: React.FC = () => {
         e.preventDefault();
 
         const newUser = {
-            Nome: userName,
-            Email: userEmail,
-            CPF: userCpf,
-            CEP: userCep,
-            Logradouro: userLogradouro,
-            Bairro: userBairro,
-            Localidade: userLocalidade,
-            UF: userUF,
-            NumeroResidencia: userNumberResidence,
-            Numero: userNumero,
-            Senha: userSenha,
+            usuarioCreateDTO: {
+                login: userName,
+                senha: userSenha,
+            },
+            clienteCreateDTO: {
+                nome: userName,
+                cpf: userCpf,
+            },
+            contatoCreateDTO: {
+                email: userEmail,
+                telefone: userNumero,
+            },
+            enderecoCreateDTO: {
+                logradouro: userLogradouro,
+                cidade: userLocalidade,
+                pais: "Brasil",
+                estado: userUF,
+                cep: userCep,
+                numero: Number(userNumberResidence),
+            },
         };
+        // Bairro: userBairro,
 
         // Adiciona o novo objeto ao array userInfo existente e atualiza o estado
         const updatedUserInfo = userInfo.concat(newUser);
         setUserInfo(updatedUserInfo);
 
-        // Atualiza o Local Storage com o array userInfo completo
-        localStorage.setItem("userInfo", JSON.stringify(updatedUserInfo));
+        createUser(newUser);
 
-        setToDashboard(true);
+        setToDashboard(false);
     };
 
     const buscarCep = async (cep: string) => {
