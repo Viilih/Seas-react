@@ -1,172 +1,181 @@
 .header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(24px + 32px);
-    background-color: var(--dark-blue-highlight);
-    padding: 2rem 0;
-    overflow: hidden;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: calc(24px + 32px);
+	background-color: var(--dark-blue-highlight);
+	padding: 2rem 0;
+	overflow: hidden;
 }
 
 .dashboardContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    max-width: 980px;
-    margin: auto;
-    padding: 48px 0;
+	display: flex;
+	flex-direction: column;
+	gap: 3rem;
+	max-width: 980px;
+	margin: auto;
+	padding: 48px 0;
 
-    .userCardAndBalance {
-        display: flex;
-        justify-content: space-between;
+	.userCardAndBalance {
+		display: flex;
+		justify-content: space-between;
 
-        .userBalance {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            border-radius: 8px;
+		.userBalance {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			border-radius: 8px;
+			.btn {
+				cursor: pointer;
+				color: var(--highlighted-text);
+				border: 2px solid var(--dark-blue-highlight);
+				padding: 0.6rem 1rem;
+				text-transform: capitalize;
+				background-color: transparent;
+				font-size: 1rem;
+				border-radius: 4px;
+			}
+			.btn[data-active='true'] {
+				background-color: var(--dark-blue-highlight);
+			}
 
-            h2 {
-                font-size: 2rem;
-            }
+			h2 {
+				font-size: 2rem;
+			}
 
-            .cardBalanceInfo {
-                display: flex;
-                flex-direction: column;
-                gap: 0.1rem;
-                max-width: 300px;
-                padding: 1rem 1.5rem;
-                border-radius: 16px;
-                background: linear-gradient(
-                        0deg,
-                        rgba(250, 251, 252, 0.1),
-                        rgba(250, 251, 252, 0.1)
-                    ),
-                    linear-gradient(
-                        90deg,
-                        rgba(240, 240, 240, 0.2) 0%,
-                        rgba(240, 240, 240, 0) 100%
-                    );
+			.cardBalanceInfo {
+				display: flex;
+				flex-direction: column;
+				gap: 0.1rem;
+				max-width: 300px;
+				padding: 1rem 1.5rem;
+				border-radius: 16px;
+				background: linear-gradient(
+						0deg,
+						rgba(250, 251, 252, 0.1),
+						rgba(250, 251, 252, 0.1)
+					),
+					linear-gradient(
+						90deg,
+						rgba(240, 240, 240, 0.2) 0%,
+						rgba(240, 240, 240, 0) 100%
+					);
 
-                .line {
-                    width: 12%;
-                    height: 3px;
-                    border-radius: 4px;
-                    background: linear-gradient(
-                        77.34deg,
-                        #36d9ff 6.16%,
-                        #4a00c5 94.12%
-                    );
-                }
+				.line {
+					width: 12%;
+					height: 3px;
+					border-radius: 4px;
+					background: linear-gradient(77.34deg, #36d9ff 6.16%, #4a00c5 94.12%);
+				}
 
-                strong {
-                    margin-top: 0.6rem;
-                    font-size: 2rem;
-                    text-align: left;
-                }
-            }
-        }
+				strong {
+					margin-top: 0.6rem;
+					font-size: 2rem;
+					text-align: left;
+				}
+			}
+		}
 
-        .userCardDashboard {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            min-width: 300px;
-            height: 100%;
-        }
+		.userCardDashboard {
+			display: flex;
+			flex-direction: column;
+			gap: 0.5rem;
+			min-width: 300px;
+			height: 100%;
+		}
 
-        .userCardDashboard > div:first-child {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-size: 1.5rem;
-            font-family: 500;
-        }
-    }
+		.userCardDashboard > div:first-child {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			font-size: 1.5rem;
+			font-family: 500;
+		}
+	}
 
-    .searchBarContainer {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-        height: 70px;
+	.searchBarContainer {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+		height: 70px;
 
-        h2 {
-            font-size: 2.5rem;
-        }
+		h2 {
+			font-size: 2.5rem;
+		}
 
-        .searchBar {
-            display: flex;
-            align-items: stretch;
-            justify-content: space-between;
-            background-color: var(--cyan-blue-highlight);
-            border-radius: 16px;
-            width: 100%;
-            height: 100%;
+		.searchBar {
+			display: flex;
+			align-items: stretch;
+			justify-content: space-between;
+			background-color: var(--cyan-blue-highlight);
+			border-radius: 16px;
+			width: 100%;
+			height: 100%;
 
-            .inputContainer {
-                width: 100%;
-                input {
-                    border: none;
-                    color: var(--light-background);
-                    font-weight: 600;
-                    font-size: 1.2rem;
-                    background-color: transparent;
-                    width: 100%;
-                    height: 100%;
-                    text-align: left;
-                    text-transform: capitalize;
+			.inputContainer {
+				width: 100%;
+				input {
+					border: none;
+					color: var(--light-background);
+					font-weight: 600;
+					font-size: 1.2rem;
+					background-color: transparent;
+					width: 100%;
+					height: 100%;
+					text-align: left;
+					text-transform: capitalize;
 
-                    &:focus {
-                        outline: none;
-                    }
-                }
-            }
+					&:focus {
+						outline: none;
+					}
+				}
+			}
 
-            .searchIconContainer {
-                border: none;
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 10%;
-                height: 70px;
-                background-color: var(--dark-blue-highlight);
-                border-radius: 0px 16px 16px 0px;
-            }
-        }
-    }
+			.searchIconContainer {
+				border: none;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 10%;
+				height: 70px;
+				background-color: var(--dark-blue-highlight);
+				border-radius: 0px 16px 16px 0px;
+			}
+		}
+	}
 
-    .transactionsContainer {
-        margin-top: 4.5rem;
-        display: flex;
-        flex-direction: column;
+	.transactionsContainer {
+		margin-top: 4.5rem;
+		display: flex;
+		flex-direction: column;
 
-        .transactionHeader {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-bottom: 1rem;
-            border-bottom: 0.5px solid var(--common-text);
+		.transactionHeader {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding-bottom: 1rem;
+			border-bottom: 0.5px solid var(--common-text);
 
-            div {
-                display: flex;
-                gap: 1rem;
+			div {
+				display: flex;
+				gap: 1rem;
 
-                button {
-                    cursor: pointer;
-                    color: var(--highlighted-text);
-                    border: 2px solid var(--dark-blue-highlight);
-                    padding: 0.6rem 1rem;
-                    text-transform: capitalize;
-                    background-color: transparent;
-                    font-size: 1rem;
-                    border-radius: 4px;
-                }
-                button[data-active="true"] {
-                    background-color: var(--dark-blue-highlight);
-                }
-            }
-        }
-    }
+				button {
+					cursor: pointer;
+					color: var(--highlighted-text);
+					border: 2px solid var(--dark-blue-highlight);
+					padding: 0.6rem 1rem;
+					text-transform: capitalize;
+					background-color: transparent;
+					font-size: 1rem;
+					border-radius: 4px;
+				}
+				button[data-active='true'] {
+					background-color: var(--dark-blue-highlight);
+				}
+			}
+		}
+	}
 }

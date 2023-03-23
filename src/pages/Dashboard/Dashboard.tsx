@@ -111,11 +111,15 @@ const Dashboard: React.FC = () => {
 				<div className={styles.userCardAndBalance}>
 					<div className={styles.userBalance}>
 						<h2>Olá, Rafael Ramos</h2>
+
 						<div className={styles.cardBalanceInfo}>
 							<h3>Saldo em conta</h3>
 							<div className={styles.line}></div>
 							<strong>R$ 1.500,00</strong>
 						</div>
+						<button className={styles.btn}>
+							<a href="/dashboard/card">Gerenciar Informações</a>
+						</button>
 					</div>
 					<div className={styles.userCardDashboard}>
 						<PlanSelected plan="platinum" title="Meu Seas" />
