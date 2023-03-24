@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../utils/api';
 import { toast } from 'react-toastify';
@@ -12,10 +12,18 @@ interface IUserContext {
 	createContact: (newAddress: IContact) => Promise<void | any>;
 }
 
+interface IAccount {
+	idUser: number;
+}
+
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: any) => {
 	const navigate = useNavigate();
+	const headers = new Headers();
+	const [numeroConta, setNumeroConta] = useState<number | null>(null);
+	const [senha, setSenha] = useState<string | null>(null);
+
 	const createUser = async (userData: any) => {
 		try {
 			const response = await fetch(`${api}/conta`, {
@@ -37,25 +45,26 @@ export const UserProvider = ({ children }: any) => {
 		}
 	};
 
-	const authenticateUser = async (numeroConta: number, senha: string) => {
+	const authenticateUser = async (numeroConta2: number, senha2: string) => {
 		try {
-			const response = await fetch(
-				`${api}/conta/cliente?numeroConta=${numeroConta}&senha=${senha}`,
-				{
-					method: 'GET',
-					headers: { 'Content-type': 'application/json' },
-				}
-			);
-			console.log(response);
+			const response = await fetch(`${api}/conta/cliente`, {
+				method: 'GET',
+				redirect: 'follow',
+				headers: {
+					'Content-Type': 'application/json',
+					'numeroConta': String(numeroConta2),
+					'senha': senha2,
+				},
+			});
+
 			if (response.ok) {
-				console.log(response);
+				const data = await response.json();
+				console.log(data);
 				navigate('/dashboard');
-				// if()
 			} else {
-				// console.log('algo deu errado no login. Por favor, tente novamente');
 			}
 		} catch (error) {
-			// console.error(error);
+			console.log(error);
 		}
 	};
 
@@ -65,6 +74,8 @@ export const UserProvider = ({ children }: any) => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'numeroConta': '100029',
+					'senha': '@Testeadmin1234',
 				},
 				body: JSON.stringify(newAddress),
 			});
@@ -80,10 +91,12 @@ export const UserProvider = ({ children }: any) => {
 	};
 	const createContact = async (newContact: IContact) => {
 		try {
-			const response = await fetch(`${api}/contato`, {
+			const response = await fetch(`/contato`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					'numeroConta': '100029',
+					'senha': '@Testeadmin1234',
 				},
 				body: JSON.stringify(newContact),
 			});
@@ -91,7 +104,7 @@ export const UserProvider = ({ children }: any) => {
 				const data = await response.json();
 
 				console.log('Cadastrado com sucesso');
-				return data as IContact[];
+				// return data as IContact[];
 			}
 		} catch (error) {
 			throw error;

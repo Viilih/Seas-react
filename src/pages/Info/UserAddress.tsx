@@ -11,14 +11,13 @@ import { UserContext } from '../../context/UserContext';
 
 export const UserAddress = () => {
 	const { createAddress } = useContext(UserContext);
-
 	const [userCep, setUserCep] = useState('');
 	const [userLogradouro, setUserLogradouro] = useState('');
 	const [userBairro, setUserBairro] = useState('');
 	const [userLocalidade, setUserLocalidade] = useState('');
-	const [userNumberResidence, setUserNumberResidence] = useState(0);
+	const [userNumberResidence, setUserNumberResidence] = useState('');
 	const [userUF, setUserUF] = useState('');
-	const [userComplemento, setUserComplemento] = useState('');
+	const [userNumero, setUserNumero] = useState('');
 	const {
 		register,
 		handleSubmit,
@@ -59,61 +58,81 @@ export const UserAddress = () => {
 				<form onSubmit={handleSubmit(onSubmit)}>
 					{/* register your input into the hook by invoking the "register" function */}
 					<div className={styles.cepContainer}>
-						<input
-							id="cep"
-							type="text"
-							placeholder="CEP"
-							{...register('cep')}
-							maxLength={8}
-							pattern={cepRegex}
+						<CepInputs
+							inputName="cep"
+							inputType="text"
+							placeholderText="CEP"
+							valueInput={userCep}
+							isRequired
+							handleChange={currentValue => setUserCep(currentValue)}
+							handleBlur={cep => buscarCep(cep)}
+							inputMaxLength={8}
+							inputPattern={cepRegex}
+							dataTestid="cep-input"
 						/>
-						<input
-							id="logradouro"
-							type="text"
-							{...register('logradouro')}
-							placeholder="Logradouro"
-							onChange={e => setUserLogradouro(e.target.value)}
-						/>
-					</div>
-					<div className={styles.cepContainer}>
-						<input
-							id="pais"
-							type="text"
-							placeholder="País"
-							onChange={() => {}}
-						/>
-						<input
-							id="cidade"
-							{...register('cidade')}
-							type="text"
-							placeholder="Cidade"
-							onChange={e => setUserLocalidade(e.target.value)}
+						<Inputs
+							inputName="logradouro"
+							inputType="text"
+							placeholderText="Logradouro"
+							valueInput={userLogradouro}
+							isRequired
+							handleChange={currentValue => setUserLogradouro(currentValue)}
+							dataTestid="log-input"
 						/>
 					</div>
 					<div className={styles.cepContainer}>
-						<input
-							id="estado"
-							type="text"
-							{...register('estado')}
-							placeholder="UF"
-							onChange={e => setUserUF(e.target.value)}
+						<Inputs
+							inputName="bairro"
+							inputType="text"
+							placeholderText="Bairro"
+							valueInput={userBairro}
+							isRequired
+							handleChange={currentValue => setUserBairro(currentValue)}
+							dataTestid="bairro-input"
 						/>
-						<input
-							id="complemento"
-							{...register('complemento')}
-							type="text"
-							placeholder="Complemento"
-							onChange={e => setUserComplemento(e.target.value)}
+						<Inputs
+							inputName="localidade"
+							inputType="text"
+							placeholderText="Localidade"
+							valueInput={userLocalidade}
+							isRequired
+							handleChange={currentValue => setUserLocalidade(currentValue)}
+							dataTestid="loc-input"
 						/>
 					</div>
-					<input
-						id="numero"
-						{...(register('numero'),
-						{ required: true, setValueAs: (value: string) => parseInt(value) })}
-						type="number"
-						placeholder="Número de residência"
-						maxLength={5}
-						pattern={numRegex}
+					<div className={styles.cepContainer}>
+						<Inputs
+							inputName="UF"
+							inputType="text"
+							placeholderText="UF"
+							valueInput={userUF}
+							isRequired
+							handleChange={currentValue => setUserUF(currentValue)}
+							dataTestid="uf-input"
+						/>
+						<Inputs
+							inputName="numero-residencia"
+							inputType="text"
+							placeholderText="Número de residência"
+							valueInput={userNumberResidence}
+							isRequired
+							inputMaxLength={5}
+							inputPattern={numRegex}
+							handleChange={currentValue =>
+								setUserNumberResidence(currentValue)
+							}
+							dataTestid="number-residence-input"
+						/>
+					</div>
+					<Inputs
+						inputName="numero"
+						inputType="text"
+						placeholderText="Número de celular"
+						valueInput={userNumero}
+						isRequired
+						inputMaxLength={14}
+						handleChange={currentValue => setUserNumero(currentValue)}
+						dataTestid="cell-number-input"
 					/>
 					<input type="submit" value="Cadastrar" />
 				</form>
