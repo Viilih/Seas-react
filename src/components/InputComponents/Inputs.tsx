@@ -14,6 +14,19 @@ interface IinputsProps {
 	dataTestid?: string;
 }
 
+interface IinputsIdProps {
+	inputName: string;
+	inputType: string;
+	placeholderText: string;
+	isRequired: boolean;
+	valueInput: number;
+	handleChange: (currentValue: number) => void;
+	inputPattern?: string;
+	inputMaxLength?: number | undefined;
+	inputMinLength?: number | undefined;
+	dataTestid?: string;
+}
+
 interface IcepInputsProps {
 	inputName: string;
 	inputType: string;

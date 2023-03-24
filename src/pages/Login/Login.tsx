@@ -12,7 +12,7 @@ import { UserContext } from '../../context/UserContext';
 
 const Login: React.FC = () => {
 	const { authenticateUser } = useContext(UserContext);
-	const [userCpf, setUserCpf] = useState('');
+	const [userIdAccount, setUserIdAccount] = useState('');
 	const cpfRegex = `[0-9]{11}`;
 
 	const [userPassword, setUserPassword] = useState('');
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		authenticateUser(userCpf, userPassword);
+		authenticateUser(Number(userIdAccount), userPassword);
 	};
 
 	return (
@@ -37,13 +37,13 @@ const Login: React.FC = () => {
 
 						<form className={styles.formContainer} onSubmit={handleSubmit}>
 							<Inputs
-								inputName="cpf"
-								inputType="text"
+								inputName="idAccount"
+								inputType="number"
 								dataTestid="cpf"
 								isRequired
-								placeholderText="CPF (somente números)"
-								valueInput={userCpf}
-								handleChange={currentValue => setUserCpf(currentValue)}
+								placeholderText="Número da conta"
+								valueInput={userIdAccount}
+								handleChange={currentValue => setUserIdAccount(currentValue)}
 							/>
 							<Inputs
 								inputName="inputPassword"

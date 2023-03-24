@@ -1,12 +1,107 @@
-.userCardDashboard {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 30rem;
-  height: 100%;
+.container {
+	padding: 3rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.heading {
+	font-size: 2rem;
+	font-weight: 700;
+	margin-bottom: 2rem;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 2rem;
+	gap: 1rem;
+
+	input {
+		border: 1px solid black;
+		margin: 20px auto;
+		padding: 1.1rem;
+		border-radius: 12px;
+		background-color: #e0e0e0a1;
+		margin: auto 8px; //provisório para teste
+		color: var(--highlighted-text);
+		font-weight: 500;
+		font-size: 1.2rem;
+		text-align: center;
+	}
+
+	select {
+		border: 1px solid black;
+		margin: 20px auto;
+		padding: 1.1rem;
+		border-radius: 12px;
+		background-color: #e0e0e0a1;
+		margin: auto 8px; //provisório para teste
+		color: var(--highlighted-text);
+		font-weight: 500;
+		font-size: 1.2rem;
+		text-align: center;
+
+		option {
+			color: black;
+		}
+	}
+
+	input[type='submit'] {
+		height: 2.8rem;
+		border-radius: 16px;
+		cursor: pointer;
+		width: 68%;
+		border: 1px solid #4a7686;
+		background-color: transparent;
+		color: #ffffff;
+		transition: all 0.3s linear;
+		a {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100%;
+			width: 100%;
+			color: white;
+		}
+		&:hover {
+			color: white;
+			background-color: #f0f0f052;
+		}
+		transition: background-color 0.2s ease-in-out;
+
+		// &:hover {
+		// 	background-color: darken(var(--highlighted-text), 10%);
+		// }
+	}
 }
 
 .cards {
-  display: flex;
-  gap: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 3rem;
+
+	.userCardDashboard {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 2rem;
+		margin-right: 2rem;
+
+		.planSelected {
+			margin-bottom: 1rem;
+		}
+
+		.card {
+			margin-bottom: 1rem;
+		}
+	}
 }
+
+// Import styles from PlanSelected and Card components
+@import '../../components/PlanSelected/PlanSelected.module.scss';
+@import '../../components/Card/Card.module.scss';
+
+// Import styles from UserAddress and UserContact pages
