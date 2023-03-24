@@ -3,28 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../utils/api';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../utils/ToastConfig';
-import { IAddress, IContact } from '../utils/interfaces';
+import { IAddress, IContact, IRegisterData } from '../utils/interfaces';
 
 interface IUserContext {
 	createUser: (userData: any) => Promise<void>;
-	authenticateUser: (numeroConta: number, senha: string) => Promise<void>;
-	createAddress: (data: IAddress) => Promise<void | any>;
-	createContact: (newAddress: IContact) => Promise<void | any>;
-}
-
-interface IAccount {
-	idUser: number;
+	authenticateUser: (login: string, senha: string) => Promise<void>;
+	createAddress: (
+		newAddress: IAddress,
+		numeroConta: number,
+		senha: string
+	) => Promise<IAddress[] | undefined>;
+	createContact: (
+		newContact: IContact,
+		numeroConta: number,
+		senha: string
+	) => Promise<void>;
+	getContact: (numeroConta: number, senha: string) => Promise<any>;
+	getAccount: () => Promise<void>;
 }
 
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: any) => {
 	const navigate = useNavigate();
-	const headers = new Headers();
-	const [numeroConta, setNumeroConta] = useState<number | null>(null);
-	const [senha, setSenha] = useState<string | null>(null);
+	const [token, setToken] = useState<string>(
+		localStorage.getItem('token') || ''
+	);
 
-	const createUser = async (userData: any) => {
+	const createUser = async (userData: IRegisterData) => {
 		try {
 			const response = await fetch(`${api}/conta`, {
 				method: 'POST',
@@ -33,7 +39,6 @@ export const UserProvider = ({ children }: any) => {
 			});
 
 			if (response.ok) {
-				console.log(await response.json());
 				toast.success('Usuário cadastro com sucesso');
 				navigate('/');
 			} else {
@@ -45,23 +50,40 @@ export const UserProvider = ({ children }: any) => {
 		}
 	};
 
-	const authenticateUser = async (numeroConta2: number, senha2: string) => {
+	const authenticateUser = async (login: string, senha: string) => {
 		try {
-			const response = await fetch(`${api}/conta/cliente`, {
-				method: 'GET',
-				redirect: 'follow',
+			const response = await fetch(`${api}/auth`, {
+				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'numeroConta': String(numeroConta2),
-					'senha': senha2,
 				},
+				body: JSON.stringify({ login, senha }),
 			});
 
 			if (response.ok) {
-				const data = await response.json();
-				console.log(data);
+				const token = await response.text();
+				localStorage.setItem('token', token);
+				setToken(token);
+				console.log(token);
 				navigate('/dashboard');
 			} else {
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
+	const getAccount = async () => {
+		try {
+			const response = await fetch(`${api}/conta`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (response.ok) {
+				const data = await response.json();
+				console.log(data);
 			}
 		} catch (error) {
 			console.log(error);
@@ -74,8 +96,8 @@ export const UserProvider = ({ children }: any) => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'numeroConta': '100029',
-					'senha': '@Testeadmin1234',
+					numeroConta: '100029',
+					senha: '@Testeadmin1234',
 				},
 				body: JSON.stringify(newAddress),
 			});
@@ -89,14 +111,13 @@ export const UserProvider = ({ children }: any) => {
 			throw error;
 		}
 	};
+
 	const createContact = async (newContact: IContact) => {
 		try {
 			const response = await fetch(`/contato`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					'numeroConta': '100029',
-					'senha': '@Testeadmin1234',
 				},
 				body: JSON.stringify(newContact),
 			});
@@ -111,9 +132,34 @@ export const UserProvider = ({ children }: any) => {
 		}
 	};
 
+	const getContact = async () => {
+		try {
+			const response = await fetch(`${api}/contato/cliente,`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+
+			if (response.ok) {
+				const data = await response.json();
+				return data;
+			}
+		} catch (error) {
+			throw error;
+		}
+	};
+
 	return (
 		<UserContext.Provider
-			value={{ createUser, authenticateUser, createAddress, createContact }}
+			value={{
+				createUser,
+				authenticateUser,
+				createAddress,
+				createContact,
+				getContact,
+				getAccount,
+			}}
 		>
 			{children}
 		</UserContext.Provider>

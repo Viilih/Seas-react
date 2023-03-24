@@ -20,7 +20,7 @@ const Login: React.FC = () => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		authenticateUser(Number(userIdAccount), userPassword);
+		authenticateUser(userIdAccount, userPassword);
 	};
 
 	return (
@@ -38,10 +38,10 @@ const Login: React.FC = () => {
 						<form className={styles.formContainer} onSubmit={handleSubmit}>
 							<Inputs
 								inputName="idAccount"
-								inputType="number"
+								inputType="text"
 								dataTestid="cpf"
 								isRequired
-								placeholderText="Número da conta"
+								placeholderText="Nome do usuário"
 								valueInput={userIdAccount}
 								handleChange={currentValue => setUserIdAccount(currentValue)}
 							/>

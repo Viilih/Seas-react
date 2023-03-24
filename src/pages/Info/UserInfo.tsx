@@ -17,7 +17,7 @@ const UserInfo = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const { createCard, cardsList, cartao } = useContext(CardContext);
+	const { createCard } = useContext(CardContext);
 
 	// useEffect(() => {
 	// 	const fetchCards = async () => {
@@ -28,7 +28,7 @@ const UserInfo = () => {
 	// 	fetchCards();
 	// }, []);
 
-	const onSubmit = (data: any) => createCard(cardType);
+	const onSubmit = () => createCard(cardType);
 
 	return (
 		<>

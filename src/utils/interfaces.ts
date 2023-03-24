@@ -8,6 +8,30 @@ export interface ICartao {
 	limite?: number;
 }
 
+export interface IRegisterData {
+	usuarioCreateDTO: {
+		login: string;
+		senha: string;
+	};
+	clienteCreateDTO: {
+		nome: string;
+		cpf: string;
+	};
+	contatoCreateDTO: {
+		telefone: string;
+		email: string;
+	};
+	enderecoCreateDTO: {
+		logradouro: string;
+		cidade: string;
+		pais: 'Brasil';
+		estado: string;
+		cep: string;
+		complemento: 'complemento';
+		numero: number;
+	};
+}
+
 export interface IAddress {
 	logradouro: string;
 	cidade: string;

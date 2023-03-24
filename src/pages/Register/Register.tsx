@@ -8,6 +8,7 @@ import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
 import { useState } from 'react';
 import { CepInputs } from '../../components/InputComponents/Inputs';
 import { UserContext } from '../../context/UserContext';
+import { IRegisterData } from '../../utils/interfaces';
 
 const Register: React.FC = () => {
 	const [toDashboard, setToDashboard] = useState(false);
@@ -66,7 +67,7 @@ const Register: React.FC = () => {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
 
-		const newUser = {
+		const newUser: IRegisterData = {
 			usuarioCreateDTO: {
 				login: userName,
 				senha: userSenha,

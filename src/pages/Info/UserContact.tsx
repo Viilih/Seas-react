@@ -38,7 +38,7 @@ export const UserContact = () => {
 			if (response.ok) {
 				const responseData = await response.json();
 				console.log(responseData);
-				createContact(responseData);
+				// createContact(responseData);
 			} else {
 				console.log(
 					'algo deu errado no cadastro de contato. Por favor, tente novamente'
