@@ -50,28 +50,7 @@ export const UserProvider = ({ children }: any) => {
 		}
 	};
 
-	const authenticateUser = async (login: string, senha: string) => {
-		try {
-			const response = await fetch(`${api}/auth`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				body: JSON.stringify({ login, senha }),
-			});
-
-			if (response.ok) {
-				const token = await response.text();
-				localStorage.setItem('token', token);
-				setToken(token);
-				console.log(token);
-				navigate('/dashboard');
-			} else {
-			}
-		} catch (error) {
-			console.log(error);
-		}
-	};
+	const authenticateUser = async (login: string, senha: string) => {};
 
 	const getAccount = async () => {
 		try {

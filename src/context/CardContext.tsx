@@ -1,30 +1,34 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { api } from '../utils/api';
 import { ICartao } from '../utils/interfaces';
+import { AuthContext } from './AuthContext';
 
 interface ICardContext {
 	createCard: (cardData: string) => Promise<void>;
 	cardsList: () => Promise<ICartao | any>;
-	cartao: ICartao[];
+	cartoes: ICartao[];
 }
 
 export const CardContext = createContext({} as ICardContext);
 
 export const CardProvider = ({ children }: any) => {
-	const [cartao, setCartao] = useState<ICartao[]>([]);
-	const createCard = async (cardData: any) => {
-		console.log(typeof cardData);
+	const { token } = useContext(AuthContext);
+
+	const [cartoes, setCartoes] = useState<ICartao[]>([]);
+	const createCard = async (typeOfCard: string) => {
 		try {
-			const response = await fetch(`${api}/cartao/criar/${cardData}`, {
+			const response = await fetch(`${api}/cartao/criar/${typeOfCard}`, {
 				method: 'POST',
-				headers: { 'Content-type': 'application/json' },
-				body: JSON.stringify(cardData),
+				headers: {
+					'Content-type': 'application/json',
+
+					Authorization: token,
+				},
+				body: JSON.stringify(typeOfCard),
 			});
-
-			console.log(response);
-
 			if (response.ok) {
-				console.log(await response.json());
+				const cartao = await response.json();
+				setCartoes([...cartoes, cartao]);
 			} else {
 				console.log('Um erro foi encontrado');
 			}
@@ -37,8 +41,9 @@ export const CardProvider = ({ children }: any) => {
 		try {
 			const response = await fetch(`${api}/cartao/listarDaConta`);
 			if (response.ok) {
-				const data = await response.json();
-				setCartao(data);
+				const arrayCartões = await response.json();
+				setCartoes(arrayCartões);
+				return cartoes;
 			} else {
 				console.log('Um erro foi encontrado');
 				return [];
@@ -49,7 +54,7 @@ export const CardProvider = ({ children }: any) => {
 		}
 	};
 	return (
-		<CardContext.Provider value={{ createCard, cardsList, cartao }}>
+		<CardContext.Provider value={{ createCard, cardsList, cartoes }}>
 			{children}
 		</CardContext.Provider>
 	);

@@ -8,6 +8,11 @@ export interface ICartao {
 	limite?: number;
 }
 
+// export interface ILogin{
+// 	nome: string;
+// 	senha: string;
+// }
+
 export interface IRegisterData {
 	usuarioCreateDTO: {
 		login: string;
