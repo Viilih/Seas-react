@@ -3,55 +3,98 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../utils/api';
 import { toast } from 'react-toastify';
 import { toastConfig } from '../utils/ToastConfig';
+import { IAddress, IContact } from '../utils/interfaces';
 
 interface IUserContext {
-	createUser: (userData: any) => Promise<void>;
-	authenticateUser: (numeroConta: string, senha: string) => Promise<void>;
+  createUser: (userData: any) => Promise<void>;
+  authenticateUser: (numeroConta: string, senha: string) => Promise<void>;
+  createAddress: (data: IAddress) => Promise<void | any>;
+  createContact: (newAddress: IContact) => Promise<void | any>;
 }
 
 export const UserContext = createContext({} as IUserContext);
 
 export const UserProvider = ({ children }: any) => {
-	const navigate = useNavigate();
-	const createUser = async (userData: any) => {
-		try {
-			const response = await fetch(`${api}/conta`, {
-				method: 'POST',
-				headers: { 'Content-type': 'application/json' },
-				body: JSON.stringify(userData),
-			});
+  const navigate = useNavigate();
+  const createUser = async (userData: any) => {
+    try {
+      const response = await fetch(`${api}/conta`, {
+        method: 'POST',
+        headers: { 'Content-type': 'application/json' },
+        body: JSON.stringify(userData),
+      });
 
-			if (response.ok) {
-				console.log(await response.json());
-				toast.success('Usuário cadastro com sucesso');
-				navigate('/');
-			} else {
-				toast.error('Ocorreu um erro ao cadastrar o usuário. Tente novamente!');
-			}
-		} catch (error) {
-			toast.error('Ocorreu um erro inesperado');
-			console.error(error);
-		}
-	};
+      if (response.ok) {
+        console.log(await response.json());
+        toast.success('Usuário cadastro com sucesso');
+        navigate('/');
+      } else {
+        toast.error('Ocorreu um erro ao cadastrar o usuário. Tente novamente!');
+      }
+    } catch (error) {
+      toast.error('Ocorreu um erro inesperado');
+      console.error(error);
+    }
+  };
 
-	const authenticateUser = async (numeroConta: string, senha: string) => {
-		// try {
-		// 	const response = await fetch(`${api}/conta/cliente`);
-		// 	console.log(response);
-		// 	if (response.ok) {
-		// 		console.log(response);
-		// 		// if()
+  const authenticateUser = async (numeroConta: string, senha: string) => {
+    try {
+      const response = await fetch(`${api}/conta/cliente`);
+      console.log(response);
+      if (response.ok) {
+        console.log(response);
+        // if()
+      }
+    } catch (error) {
+      alert('algo deu errado no login. Por favor, tente novamente');
+    }
+    navigate('/dashboard');
+  };
 
-		// 	}
-		// } catch (error) {
-		// 	alert('algo deu errado no login. Por favor, tente novamente');
-		// }
-		navigate('/dashboard');
-	};
+  const createAddress = async (newAddress: IAddress) => {
+    try {
+      const response = await fetch(`${api}/endereco`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newAddress),
+      });
+      if (response.ok) {
+        const data = await response.json();
 
-	return (
-		<UserContext.Provider value={{ createUser, authenticateUser }}>
-			{children}
-		</UserContext.Provider>
-	);
+        console.log('Cadastrado com sucesso');
+        return data as IAddress[];
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+  const createContact = async (newContact: IContact) => {
+    try {
+      const response = await fetch(`${api}/contato`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newContact),
+      });
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log('Cadastrado com sucesso');
+        return data as IContact[];
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return (
+    <UserContext.Provider
+      value={{ createUser, authenticateUser, createAddress, createContact }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
