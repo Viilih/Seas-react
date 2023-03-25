@@ -5,7 +5,6 @@ export interface ICartao {
   vencimento?: string;
   status?: 'ATIVO' | 'INATIVO';
   numeroCartao: number;
-  limite?: number;
 }
 export interface IChildren {
   children?: React.ReactNode;
@@ -44,26 +43,37 @@ export interface IAddress {
   logradouro: string;
   cidade: string;
   estado: string;
-  pais: 'Brasil';
+  pais: string;
   cep: string;
-  complemento?: string; // O campo complemento é opcional
-  numero: number; // O campo numero é opcional
+  complemento?: string;
+  numero: number;
 }
 
 export interface IContact {
   telefone: string;
   email?: string;
 }
-export interface ICliente {
-  cpf: string;
-  idUsuario: number;
-  nome: string;
-}
-export interface IConta extends ICliente {
+
+export interface IConta {
   agencia: number;
   chequeEspecial: number;
-
+  cliente: {
+    cpf: string;
+    idUsuario: number;
+    nome: string;
+  };
   idConta: number;
   saldo: number;
   status?: 'INATIVO' | 'ATIVO';
+}
+
+export interface IPagamento {
+  numeroCartao: number;
+  docVendedor: string;
+  itens: {
+    nome: string;
+    valor: number;
+    quantidade: number;
+  };
+  codigoSeguranca: number;
 }

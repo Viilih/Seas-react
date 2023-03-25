@@ -1,57 +1,117 @@
 import { createContext, useContext } from 'react';
 import { api } from '../utils/api';
 import { AuthContext } from './AuthContext';
-
-export const ContactContext = createContext({} as any);
+import { IContact } from '../utils/interfaces';
+import { toast } from 'react-toastify';
 
 interface IContactContext {
-	createContact: (telefone: string, email: string) => Promise<any>;
+  createContact: (newContact: IContact) => Promise<IContact[] | any>;
+  getContact: () => Promise<any>;
+  deleteContact: (id: number) => Promise<void>;
+  updateContact: (
+    updatedContact: IContact,
+    id: number
+  ) => Promise<IContact[] | undefined>;
 }
 
+export const ContactContext = createContext({} as IContactContext);
+
 export const ContactProvider = ({ children }: any) => {
-	const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-	const createContact = async (telefone: string, email: string) => {
-		try {
-			const response = await fetch(`${api}/contato`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: token,
-				},
-				body: JSON.stringify({ telefone, email }),
-			});
+  // Criar Contato
+  const createContact = async (newContact: IContact) => {
+    try {
+      const response = await fetch(`${api}/contato`, {
+        method: 'POST',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newContact),
+      });
+      console.log(response);
 
-			if (response.ok) {
-				const data = await response.json();
-				return data;
-			} else {
-				console.log('Um erro foi encontrado');
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
+      if (response.ok) {
+        const data = await response.json();
+        toast.success('Contato cadastrado com sucesso!');
 
-	const getContact = async () => {
-		try {
-			const response = await fetch(`${api}/contato`, {
-				method: 'GET',
-				headers: { 'Content-Type': 'application/json', Authorization: token },
-			});
+        console.log('Cadastrado com sucesso');
+        return data as IContact[]; //
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
 
-			if (response.ok) {
-				const dataUser = await response.json();
-				return dataUser;
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
+  // Listar Contato
+  const getContact = async () => {
+    try {
+      const response = await fetch(`${api}/contato/cliente,`, {
+        method: 'GET',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
 
-	return (
-		<ContactContext.Provider value={{ createContact }}>
-			{children}
-		</ContactContext.Provider>
-	);
+      if (response.ok) {
+        const data = await response.json();
+        return data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Deletar Contato
+  const deleteContact = async (id: number) => {
+    try {
+      const response = await fetch(`${api}/contato/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        toast.success('Contato deletado com sucesso!');
+      } else {
+        toast.error('Erro ao deletar contato.');
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Atualizar Contato
+  const updateContact = async (updatedContact: IContact, id: number) => {
+    try {
+      const response = await fetch(`${api}/contato/${id}`, {
+        method: 'PUT',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedContact),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success('Contato atualizado com sucesso!');
+        return data as IContact[];
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return (
+    <ContactContext.Provider
+      value={{ createContact, getContact, deleteContact, updateContact }}
+    >
+      {children}
+    </ContactContext.Provider>
+  );
 };

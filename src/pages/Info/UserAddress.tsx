@@ -9,9 +9,10 @@ import { CardContext } from '../../context/CardContext';
 import Inputs, { CepInputs } from '../../components/InputComponents/Inputs';
 import { UserContext } from '../../context/UserContext';
 import { IAddress } from '../../utils/interfaces';
+import { AddressContext } from '../../context/AddressContext';
 
 export const UserAddress = () => {
-  const { createAddress } = useContext(UserContext);
+  const { createAddress } = useContext(AddressContext);
   const [userCep, setUserCep] = useState('');
   const [userLogradouro, setUserLogradouro] = useState('');
   const [userBairro, setUserBairro] = useState('');

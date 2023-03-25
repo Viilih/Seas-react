@@ -8,7 +8,7 @@ import Inputs from '../../components/InputComponents/Inputs';
 import { BsSearch } from 'react-icons/bs';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { ICliente, IConta } from '../../utils/interfaces';
+import { IConta } from '../../utils/interfaces';
 
 const Dashboard: React.FC = () => {
   const initialTransactionData = [
@@ -104,19 +104,21 @@ const Dashboard: React.FC = () => {
   const [btnAllState, setBtnAllState] = useState(false);
 
   const { getUserInfo } = useContext(AuthContext);
-  const [infoUser, setInfoUser] = useState<ICliente[]>([]);
+  const [infoUser, setInfoUser] = useState<IConta[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-  //   const fetchUsers = async () => {
-  //     const data = await getUserInfo();
+  //Listar as informações;
 
-  //     setInfoUser(data);
-  //   };
-  //   fetchUsers();
-  // }, [getUserInfo]);
-  // console.log(infoUser);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const data = await getUserInfo();
 
+      setInfoUser(data);
+    };
+    fetchUsers();
+  }, [getUserInfo]);
+  const arrayUser = Object.values(infoUser);
+  console.log(arrayUser);
   return (
     <>
       <Sidebar />
@@ -126,10 +128,9 @@ const Dashboard: React.FC = () => {
       <div className={styles.dashboardContainer}>
         <div className={styles.userCardAndBalance}>
           <div className={styles.userBalance}>
-            {Object.values(infoUser).map((user) => (
-              <div key={user.cpf}>{user.nome && <h1>Olá, {user.nome}</h1>}</div>
-            ))}
-
+            {arrayUser.map((user: any) => {
+              return user.nome ? <h1>Olá, {user.nome}</h1> : null;
+            })}
             <div className={styles.cardBalanceInfo}>
               <h3>Saldo em conta</h3>
               <div className={styles.line}></div>
@@ -139,21 +140,23 @@ const Dashboard: React.FC = () => {
               <a href="/dashboard/card">Gerenciar Informações</a>
             </button>
           </div>
-          {Object.values(infoUser).map((user) => (
-            <div key={user.cpf}>
-              {user.nome && (
-                <div className={styles.userCardDashboard}>
-                  <PlanSelected plan="platinum" title="Meu Seas" />
+
+          <div className={styles.userCardDashboard}>
+            <PlanSelected plan="platinum" title="Meu Seas" />
+            {arrayUser.map((user: any) => {
+              if (user.nome) {
+                return (
                   <Card
                     cardNumber={2222222222222}
                     holderName={user.nome}
                     expiration="02/02"
                     dataType="platinum"
                   />
-                </div>
-              )}
-            </div>
-          ))}
+                );
+              }
+              return null;
+            })}
+          </div>
         </div>
 
         <div className={styles.searchBarContainer}>

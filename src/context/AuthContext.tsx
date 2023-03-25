@@ -3,9 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { api } from '../utils/api';
 import { IChildren, IConta } from '../utils/interfaces';
+import { toastConfig } from '../utils/ToastConfig';
 
 interface IAuthContext {
-  createNewUser: (userData: any) => Promise<void>;
   authenticateUser: (login: string, senha: string) => Promise<void>;
   getUserInfo: () => Promise<IConta[] | any>;
   token: string;
@@ -30,12 +30,16 @@ export const AuthProvider = ({ children }: IChildren) => {
       });
       console.log(response);
       if (response.ok) {
+        toast.success('Bem-vindo', toastConfig);
         const token = await response.text();
         localStorage.setItem('token', token);
         setToken(token);
+        console.log(response);
 
         navigate('/dashboard');
       } else {
+        toast.error('Usuário Inválido', toastConfig);
+
         console.log(response);
       }
     } catch (error) {
@@ -43,25 +47,8 @@ export const AuthProvider = ({ children }: IChildren) => {
     }
   };
 
-  const createNewUser = async (userData: any) => {
-    try {
-      const response = await fetch(`${api}/conta`, {
-        method: 'POST',
-        headers: { 'Content-type': 'application/json' },
-        body: JSON.stringify(userData),
-      });
+  // Listar informações do Usuário
 
-      if (response.ok) {
-        toast.success('Usuário cadastro com sucesso');
-        navigate('/');
-      } else {
-        toast.error('Ocorreu um erro ao cadastrar o usuário. Tente novamente!');
-      }
-    } catch (error) {
-      toast.error('Ocorreu um erro inesperado');
-      console.error(error);
-    }
-  };
   const getUserInfo = async () => {
     try {
       const response = await fetch(`${api}/conta`, {
@@ -85,9 +72,7 @@ export const AuthProvider = ({ children }: IChildren) => {
   };
 
   return (
-    <AuthContext.Provider
-      value={{ authenticateUser, createNewUser, getUserInfo, token }}
-    >
+    <AuthContext.Provider value={{ authenticateUser, getUserInfo, token }}>
       {children}
     </AuthContext.Provider>
   );

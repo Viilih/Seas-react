@@ -1,53 +1,113 @@
 import { createContext, useContext } from 'react';
 import { api } from '../utils/api';
 import { AuthContext } from './AuthContext';
+import { IAddress } from '../utils/interfaces';
+import { toast } from 'react-toastify';
 
-export const AddressContext = createContext({} as any);
+interface IAddressContext {
+  createAddress: (newAddress: IAddress) => Promise<IAddress[] | any>;
+  getAddress: () => Promise<any>;
+  deleteAddress: (id: number) => Promise<any>;
+  updateAddress: (id: number, updatedAddress: IAddress) => Promise<any>;
+}
+
+export const AddressContext = createContext({} as IAddressContext);
 
 export const AddressProvider = ({ children }: any) => {
-	const { token } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
 
-	const createAddress = async (
-		cep: string,
-		rua: string,
-		numero: number,
-		complemento: string,
-		bairro: string,
-		cidade: string,
-		estado: string
-	) => {
-		try {
-			const response = await fetch(`${api}/endereco`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: token,
-				},
-				body: JSON.stringify({
-					cep,
-					rua,
-					numero,
-					complemento,
-					bairro,
-					cidade,
-					estado,
-				}),
-			});
+  // Criar Endereço
+  const createAddress = async (newAddress: IAddress) => {
+    try {
+      const response = await fetch(`${api}/endereco`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify(newAddress),
+      });
+      if (response.ok) {
+        const data = await response.json();
 
-			if (response.ok) {
-				const data = await response.json();
-				return data;
-			} else {
-				console.log('Um erro foi encontrado');
-			}
-		} catch (error) {
-			console.error(error);
-		}
-	};
+        toast.success('Endereço cadastrado com sucesso!');
 
-	return (
-		<AddressContext.Provider value={{ createAddress }}>
-			{children}
-		</AddressContext.Provider>
-	);
+        return data as IAddress[];
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Listar Endereço
+  const getAddress = async () => {
+    try {
+      const response = await fetch(`${api}/endereco,`, {
+        method: 'GET',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        return data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Apagar Endereço
+  const deleteAddress = async (id: number) => {
+    try {
+      const response = await fetch(`${api}/endereco/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success('Endereço apagado com sucesso!');
+        return data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // Atualizar Endereço
+  const updateAddress = async (id: number, updatedAddress: IAddress) => {
+    try {
+      const response = await fetch(`${api}/endereco/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+        body: JSON.stringify(updatedAddress),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        toast.success('Endereço atualizado com sucesso!');
+        return data;
+      }
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  return (
+    <AddressContext.Provider
+      value={{ createAddress, getAddress, deleteAddress, updateAddress }}
+    >
+      {children}
+    </AddressContext.Provider>
+  );
 };
