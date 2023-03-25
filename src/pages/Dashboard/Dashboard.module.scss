@@ -23,6 +23,7 @@
 		.userBalance {
 			display: flex;
 			flex-direction: column;
+			width: 40%;
 			gap: 0.5rem;
 			border-radius: 8px;
 			.btn {
@@ -34,6 +35,7 @@
 				background-color: transparent;
 				font-size: 1rem;
 				border-radius: 4px;
+				width: 50%;
 			}
 			.btn[data-active='true'] {
 				background-color: var(--dark-blue-highlight);
@@ -48,6 +50,7 @@
 				flex-direction: column;
 				gap: 0.1rem;
 				max-width: 300px;
+				width: 100%;
 				padding: 1rem 1.5rem;
 				border-radius: 16px;
 				background: linear-gradient(
@@ -108,6 +111,7 @@
 			display: flex;
 			align-items: stretch;
 			justify-content: space-between;
+			flex-direction: row;
 			background-color: var(--cyan-blue-highlight);
 			border-radius: 16px;
 			width: 100%;

@@ -7,7 +7,7 @@ import seasLogo from '../../assets/seas-logo.svg';
 
 interface ICardProps {
 	cardNumber: number;
-	holderName: string;
+	holderName: string | undefined;
 	expiration: string;
 	dataType: 'platinum' | 'gold' | 'silver';
 }

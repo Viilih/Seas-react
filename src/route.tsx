@@ -15,31 +15,31 @@ import { AddressProvider } from './context/AddressContext';
 import { ContactProvider } from './context/ContactContext';
 
 const Router = () => {
-  return (
-    <BrowserRouter>
-      <ToastContainer />
-      <AuthProvider>
-        <UserProvider>
-          <AddressProvider>
-            <ContactProvider>
-              <CardProvider>
-                <Routes>
-                  <Route path="/" element={<Login />} />
-                  <Route path="/register" element={<Register />} />
-                  <Route path="/admin" element={<AdminPage />} />
-                  <Route element={<PrivateRoute />}>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/info" element={<UserInfo />} />
-                    <Route path="/address" element={<UserAddress />} />
-                  </Route>
-                </Routes>
-              </CardProvider>
-            </ContactProvider>
-          </AddressProvider>
-        </UserProvider>
-      </AuthProvider>
-    </BrowserRouter>
-  );
+	return (
+		<BrowserRouter>
+			<ToastContainer />
+			<AuthProvider>
+				<UserProvider>
+					<AddressProvider>
+						<ContactProvider>
+							<CardProvider>
+								<Routes>
+									<Route path="/" element={<Login />} />
+									<Route path="/register" element={<Register />} />
+									<Route path="/admin" element={<AdminPage />} />
+									<Route element={<PrivateRoute />}>
+										<Route path="/dashboard" element={<Dashboard />} />
+										<Route path="/info" element={<UserInfo />} />
+										<Route path="/address" element={<UserAddress />} />
+									</Route>
+								</Routes>
+							</CardProvider>
+						</ContactProvider>
+					</AddressProvider>
+				</UserProvider>
+			</AuthProvider>
+		</BrowserRouter>
+	);
 };
 
 export default Router;
