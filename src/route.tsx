@@ -8,24 +8,32 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import UserInfo from './pages/Info/UserInfo';
 import { UserAddress } from './pages/Info/UserAddress';
 import { CardProvider } from './context/CardContext';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { AdminPage } from './pages/Admin/AdminPage';
+import { AuthProvider } from './context/AuthContext';
 
 const Router = () => {
-	return (
-		<BrowserRouter>
-			<ToastContainer />
-			<UserProvider>
-				<CardProvider>
-					<Routes>
-						<Route path="/" element={<Login />} />
-						<Route path="/dashboard" element={<Dashboard />} />
-						<Route path="/register" element={<Register />} />
-						<Route path="/info" element={<UserInfo />} />
-						<Route path="/address" element={<UserAddress />} />
-					</Routes>
-				</CardProvider>
-			</UserProvider>
-		</BrowserRouter>
-	);
+  return (
+    <BrowserRouter>
+      <ToastContainer />
+      <AuthProvider>
+        <UserProvider>
+          <CardProvider>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/admin" element={<AdminPage />} />
+              <Route element={<PrivateRoute />}>
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/info" element={<UserInfo />} />
+                <Route path="/address" element={<UserAddress />} />
+              </Route>
+            </Routes>
+          </CardProvider>
+        </UserProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 };
 
 export default Router;
