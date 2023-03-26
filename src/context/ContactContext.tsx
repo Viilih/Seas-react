@@ -47,13 +47,17 @@ export const ContactProvider = ({ children }: any) => {
 	// Listar Contato
 	const getContact = async () => {
 		try {
-			const response = await fetch(`${api}/contato/cliente,`, {
-				method: 'GET',
-				headers: {
-					Authorization: token,
-					'Content-Type': 'application/json',
-				},
-			});
+			const response = await fetch(
+				`http://vemser-dbc.dbccompany.com.br:39000/canovao/vemser-trabalho-final/contato/cliente,`,
+				{
+					method: 'GET',
+					headers: {
+						Authorization: token,
+						'Content-Type': 'application/json',
+					},
+				}
+			);
+			console.log(response);
 
 			if (response.ok) {
 				const data = await response.json();

@@ -6,11 +6,12 @@ import { IChildren, IConta } from '../utils/interfaces';
 import { toastConfig } from '../utils/ToastConfig';
 
 interface IAuthContext {
-	authenticateUser: (login: string, senha: string) => Promise<void>;
+	authenticateUser: (login: string, senha: string) => {};
 	getUserInfo: () => Promise<IConta[] | any>;
 	token: string;
 	deposit: (valor: number) => Promise<void>;
 	withdraw: (valor: number) => Promise<void>;
+	isAdmin: () => {};
 }
 export const AuthContext = createContext({} as IAuthContext);
 
@@ -32,17 +33,45 @@ export const AuthProvider = ({ children }: IChildren) => {
 			});
 
 			if (response.ok) {
-				toast.success('Bem-vindo', toastConfig);
 				const token = await response.text();
 				localStorage.setItem('token', token);
 				setToken(token);
-				console.log(response);
+				await isAdmin();
 
-				navigate('/dashboard');
+				toast.success('Bem-vindo', toastConfig);
+				console.log(response);
 			} else {
 				toast.error('Usuário Inválido', toastConfig);
 
 				console.log(response);
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	};
+	const isAdmin = async () => {
+		try {
+			const token = localStorage.getItem('token');
+			if (!token) {
+				throw new Error('Token não encontrado');
+			}
+			const response = await fetch(`${api}/usuario/logado`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: token,
+				},
+			});
+			if (response.ok) {
+				const data = await response.json();
+				const roles = data.cargos;
+				if (roles.includes('ROLE_ADMIN')) {
+					navigate('/admin');
+				} else {
+					navigate('/dashboard');
+				}
+			} else {
+				throw new Error('Não foi possível obter as informações do usuário');
 			}
 		} catch (error) {
 			console.log(error);
@@ -116,7 +145,14 @@ export const AuthProvider = ({ children }: IChildren) => {
 
 	return (
 		<AuthContext.Provider
-			value={{ authenticateUser, getUserInfo, deposit, withdraw, token }}
+			value={{
+				authenticateUser,
+				isAdmin,
+				getUserInfo,
+				deposit,
+				withdraw,
+				token,
+			}}
 		>
 			{children}
 		</AuthContext.Provider>

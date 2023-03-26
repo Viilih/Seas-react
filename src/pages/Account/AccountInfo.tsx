@@ -63,7 +63,7 @@ const AccountInfo = () => {
 
 	useEffect(() => {
 		const fetchContactInfo = async () => {
-			const user: any = await getContact();
+			const user: any = await getAddress();
 			console.log(user);
 			setContactInfo(user);
 		};
