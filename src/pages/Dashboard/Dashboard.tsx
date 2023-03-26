@@ -12,6 +12,7 @@ import { CardContext } from '../../context/CardContext';
 import { ICartao, IConta } from '../../utils/interfaces';
 import { info } from 'console';
 import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
+import { EconomicContext } from '../../context/EconomicContext';
 
 const Dashboard: React.FC = () => {
 	const initialTransactionData = [
@@ -104,6 +105,7 @@ const Dashboard: React.FC = () => {
 	const [searchBarText, setSearchBarText] = useState('');
 	const [btnEntryState, setBtnEntryState] = useState(false);
 	const [btnSpentState, setBtnSpentState] = useState(false);
+	const [btnTransferenceState, setBtnTransferenceState] = useState(false);
 	const [btnAllState, setBtnAllState] = useState(false);
 
 	const { getUserInfo, withdraw, deposit } = useContext(AuthContext);
@@ -118,6 +120,14 @@ const Dashboard: React.FC = () => {
 
 	const [withdrawValue, setWithdrawValue] = useState(0);
 	const [showWithdraw, setShowWithdraw] = useState(false);
+
+	const { getTransactions, createTransactions } = useContext(EconomicContext);
+	const [transactions, setTransactions] = useState<[]>([]);
+
+	const handleTransaction = async () => {
+		const data = await getTransactions();
+		setTransactions(data);
+	};
 
 	const toggleDeposit = () => {
 		setShowDeposit(!showDeposit);
@@ -238,6 +248,13 @@ const Dashboard: React.FC = () => {
 					</div>
 				</div>
 
+				<div className={styles.transferencesContainer}>
+					<h1>Acompanhe suas transferências!</h1>
+					<button>Listar transferências!</button>
+					<button>Realizar transferências</button>
+					<ul></ul>
+				</div>
+
 				<div className={styles.searchBarContainer}>
 					<h2>Faça a sua busca!</h2>
 
@@ -291,6 +308,24 @@ const Dashboard: React.FC = () => {
 					<div className={styles.transactionHeader}>
 						<h2>Suas Transações</h2>
 						<div>
+							<button>Listar transferências</button>
+							<button
+								data-testid="all-btn"
+								onClick={() => {
+									setBtnEntryState(false);
+									setBtnAllState(!btnAllState);
+									setBtnSpentState(false);
+
+									setTransactionData(initialTransactionData);
+
+									if (!btnAllState) {
+										setTransactionData(initialTransactionData);
+									}
+								}}
+								data-active={btnAllState}
+							>
+								All
+							</button>
 							<button
 								data-testid="entry-btn"
 								onClick={() => {
@@ -312,6 +347,7 @@ const Dashboard: React.FC = () => {
 							>
 								Entradas
 							</button>
+
 							<button
 								data-testid="spent-btn"
 								onClick={() => {
@@ -334,23 +370,6 @@ const Dashboard: React.FC = () => {
 								data-active={btnSpentState}
 							>
 								Saídas
-							</button>
-							<button
-								data-testid="all-btn"
-								onClick={() => {
-									setBtnEntryState(false);
-									setBtnAllState(!btnAllState);
-									setBtnSpentState(false);
-
-									setTransactionData(initialTransactionData);
-
-									if (!btnAllState) {
-										setTransactionData(initialTransactionData);
-									}
-								}}
-								data-active={btnAllState}
-							>
-								all
 							</button>
 						</div>
 					</div>

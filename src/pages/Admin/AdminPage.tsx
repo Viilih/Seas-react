@@ -39,120 +39,132 @@ export const AdminPage = () => {
 				<div className={styles.contentContainer}>
 					<h3>Relatório do cliente</h3>
 					<div className={styles.inputContainer}>
-						<input
-							type="text"
-							placeholder="Digite o CPF do cliente"
-							name="cpf"
-						/>
-						<input
-							type="text"
-							placeholder="Digite o número da conta do cliente"
-							name="numeroConta"
-							id="accountNumber"
-						/>
-						<button
-							onClick={() => {
-								handleCostumerReport();
-								toggleReport();
-							}}
-							className={styles.btn}
-						>
-							Buscar relatório
-						</button>
-						<button
-							className={styles.btn}
-							onClick={() => {
-								handleDisableAccount();
-							}}
-						>
-							Desativar Conta
-						</button>
-						<button
-							className={styles.btn}
-							onClick={() => handleActivateAccount()}
-						>
-							{' '}
-							Ativar Conta
-						</button>
+						<h3>
+							Digite o cpf do cliente para acessar as informações ou ativar sua
+							conta
+						</h3>
+						<div className={styles.cpfInputContainer}>
+							<input
+								type="text"
+								placeholder="Digite o CPF do cliente"
+								name="cpf"
+							/>
+							<div className={styles.btnContainer}>
+								<button
+									onClick={() => {
+										handleCostumerReport();
+										toggleReport();
+									}}
+									className={styles.btn}
+								>
+									Buscar
+								</button>
+								<button
+									className={styles.btn}
+									onClick={() => handleActivateAccount()}
+								>
+									Ativar
+								</button>
+							</div>
+						</div>
+						<div className={styles.accountNumberInputContainer}>
+							<input
+								type="text"
+								placeholder="Digite o número da conta do cliente"
+								name="numeroConta"
+								id="accountNumber"
+							/>
+
+							<div className={styles.btnContainer}>
+								<button
+									className={styles.btn}
+									onClick={() => {
+										handleDisableAccount();
+									}}
+								>
+									Desativar Conta
+								</button>
+							</div>
+						</div>
 					</div>
 					{showReport ? (
 						<div>
 							<ul className={styles.costumerReport}>
 								<li>
-									<span>Número da conta:</span>
-									<span> {customerReport?.numeroConta}</span>
+									<span className={styles.title}>Número da conta:</span>
+									<span>{customerReport?.numeroConta}</span>
 								</li>
 								<li>
-									<span>Agência:</span>
-									<span> {customerReport?.agencia}</span>
+									<span className={styles.title}>Agência:</span>
+									<span>{customerReport?.agencia}</span>
 								</li>
 								<li>
-									<span>Saldo:</span>
-									<span> {customerReport?.saldo}</span>
+									<span className={styles.title}>Saldo:</span>
+									<span>{customerReport?.saldo}</span>
 								</li>
 								<li>
-									<span>Cheque especial:</span>
-									<span> {customerReport?.chequeEspecial}</span>
+									<span className={styles.title}>Cheque especial:</span>
+									<span>{customerReport?.chequeEspecial}</span>
 								</li>
 								<li>
-									<span>Status:</span>
-									<span> {customerReport?.status}</span>
+									<span className={styles.title}>Status:</span>
+									<span>{customerReport?.status}</span>
 								</li>
 								<li>
-									<span>ID do cliente:</span>
-									<span> {customerReport?.idCliente}</span>
+									<span className={styles.title}>ID do cliente:</span>
+									<span>{customerReport?.idCliente}</span>
 								</li>
 								<li>
-									<span>CPF:</span>
-									<span> {customerReport?.cpf}</span>
+									<span className={styles.title}>CPF:</span>
+									<span>{customerReport?.cpf}</span>
 								</li>
 								<li>
-									<span>Nome:</span>
-									<span> {customerReport?.nome}</span>
+									<span className={styles.title}>Nome:</span>
+									<span>{customerReport?.nome}</span>
 								</li>
 								<li>
-									<span>ID do contato:</span>
-									<span> {customerReport?.idContato}</span>
+									<span className={styles.title}>ID do contato:</span>
+									<span>{customerReport?.idContato}</span>
 								</li>
 								<li>
-									<span>Telefone:</span>
-									<span> {customerReport?.telefone}</span>
+									<span className={styles.title}>Telefone:</span>
+									<span>{customerReport?.telefone}</span>
 								</li>
 								<li>
-									<span>Email:</span>
-									<span> {customerReport?.email}</span>
+									<span className={styles.title}>Email:</span>
+									<span>{customerReport?.email}</span>
 								</li>
 								<li>
-									<span>ID do endereço:</span>
-									<span> {customerReport?.idEndereco}</span>
+									<span className={styles.title}>ID do endereço:</span>
+									<span>{customerReport?.idEndereco}</span>
 								</li>
 								<li>
-									<span>Cidade:</span>
-									<span> {customerReport?.cidade}</span>
+									<span className={styles.title}>Cidade:</span>
+									<span>{customerReport?.cidade}</span>
 								</li>
 								<li>
-									<span>Logradouro:</span>
-									<span> {customerReport?.logradouro}</span>
+									<span className={styles.title}>Logradouro:</span>
+									<span>{customerReport?.logradouro}</span>
 								</li>
 								<li>
-									<span>Estado:</span>
-									<span> {customerReport?.estado}</span>
+									<span className={styles.title}>Estado:</span>
+									<span>{customerReport?.estado}</span>
 								</li>
 								<li>
-									<span>País:</span>
-									<span> {customerReport?.pais}</span>
+									<span className={styles.title}>País:</span>
+									<span>{customerReport?.pais}</span>
 								</li>
 								<li>
-									<span>CEP:</span>
-									<span> {customerReport?.cep}</span>
+									<span className={styles.title}>CEP:</span>
+									<span>{customerReport?.cep}</span>
 								</li>
 								<li>
-									<span>Complemento:</span>
-									<span> {customerReport?.complemento}</span>
+									<span className={styles.title}>Complemento:</span>
+									<span>{customerReport?.complemento}</span>
 								</li>
 								<li>
-									<span>Número:</span>
-									<span> {customerReport?.numero}</span>
+									<span className={styles.title}>Número:</span>
+									<span>{customerReport?.numero}</span>
 								</li>
 							</ul>
 						</div>
