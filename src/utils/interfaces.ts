@@ -79,8 +79,10 @@ export interface IAddress {
 }
 
 export interface IContact {
+	idContato: number;
 	telefone: string;
 	email?: string;
+	idCliente: number;
 }
 
 export interface IConta {

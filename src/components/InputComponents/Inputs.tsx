@@ -42,6 +42,48 @@ interface IcepInputsProps {
 	handleBlur: (cep: string) => void;
 }
 
+interface IActionInputProps {
+	inputName: string;
+	inputType: string;
+	placeholderText: string;
+	isRequired: boolean;
+	valueInput: string;
+	inputPattern?: string;
+	inputMaxLength?: number | undefined;
+	inputMinLength?: number | undefined;
+	dataTestid?: string;
+	handleChange: (currentValue: string) => void;
+}
+
+export const ActionInput = ({
+	inputName,
+	inputType = 'text',
+	placeholderText,
+	isRequired = true,
+	valueInput,
+	handleChange,
+	inputPattern,
+	inputMaxLength,
+	inputMinLength,
+	dataTestid,
+}: IActionInputProps) => {
+	return (
+		<input
+			className={styles.inputsDefaultStyle}
+			name={inputName}
+			type={inputType}
+			placeholder={placeholderText}
+			required={isRequired}
+			value={valueInput}
+			onChange={e => handleChange(e.target.value)}
+			pattern={inputPattern}
+			maxLength={inputMaxLength}
+			minLength={inputMinLength}
+			data-testid={dataTestid}
+		/>
+	);
+};
+
 export const CepInputs = ({
 	inputName,
 	inputType = 'text',

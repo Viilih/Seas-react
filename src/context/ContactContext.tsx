@@ -48,7 +48,7 @@ export const ContactProvider = ({ children }: any) => {
 	const getContact = async () => {
 		try {
 			const response = await fetch(
-				`http://vemser-dbc.dbccompany.com.br:39000/canovao/vemser-trabalho-final/contato/cliente,`,
+				`http://vemser-dbc.dbccompany.com.br:39000/canovao/vemser-trabalho-final/contato/cliente`,
 				{
 					method: 'GET',
 					headers: {
