@@ -132,7 +132,7 @@ export const CardProvider = ({ children }: any) => {
 	) => {
 		try {
 			const response = await fetch(`${api}/cartao/pagar?valor=${valor}`, {
-				method: 'POST',
+				method: 'PUT',
 				headers: {
 					Authorization: token,
 					'Content-Type': 'application/json',
