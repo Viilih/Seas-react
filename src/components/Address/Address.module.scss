@@ -1,0 +1,47 @@
+.contactSelect {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	height: 100%;
+	padding: 0 20px;
+	background-color: orange;
+}
+
+.contactInfo {
+	.contactInfoItem {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		height: 100%;
+		padding: 0 20px;
+		background-color: orange;
+	}
+}
+
+.locationInfo {
+	display: flex;
+	justify-content: space-evenly;
+
+	.locationInfoItem {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		padding: 0 20px;
+		background-color: blueviolet;
+	}
+	.editItem {
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		justify-content: space-between;
+		width: 100%;
+		height: 100%;
+		padding: 0 20px;
+		background-color: blueviolet;
+	}
+}

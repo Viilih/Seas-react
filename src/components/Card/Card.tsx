@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Card.module.scss';
+import { CardContext } from '../../context/CardContext';
 import { AiOutlineWifi } from 'react-icons/ai';
 import { FcSimCardChip } from 'react-icons/fc';
 
@@ -8,7 +9,7 @@ import seasLogo from '../../assets/seas-logo.svg';
 interface ICardProps {
 	cardNumber: number;
 	holderName: string | undefined;
-	expiration: string;
+	expiration: string | undefined;
 	dataType: 'platinum' | 'gold' | 'silver';
 }
 

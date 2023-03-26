@@ -1,6 +1,7 @@
 import Login from './pages/Login/Login';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Register from './pages/Register/Register';
+import AccountInfo from './pages/Account/AccountInfo';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 import { UserProvider } from './context/UserContext';
@@ -31,6 +32,7 @@ const Router = () => {
 										<Route path="/dashboard" element={<Dashboard />} />
 										<Route path="/info" element={<UserInfo />} />
 										<Route path="/address" element={<UserAddress />} />
+										<Route path="/account" element={<AccountInfo />} />
 									</Route>
 								</Routes>
 							</CardProvider>

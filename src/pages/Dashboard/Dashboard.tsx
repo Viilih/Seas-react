@@ -8,7 +8,8 @@ import Inputs from '../../components/InputComponents/Inputs';
 import { BsSearch } from 'react-icons/bs';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { IConta } from '../../utils/interfaces';
+import { CardContext } from '../../context/CardContext';
+import { ICartao, IConta } from '../../utils/interfaces';
 import { info } from 'console';
 import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
 
@@ -109,6 +110,9 @@ const Dashboard: React.FC = () => {
 	const [infoUser, setInfoUser] = useState<IConta | undefined>();
 	const [isLoading, setIsLoading] = useState(true);
 
+	const { cardsList } = useContext(CardContext);
+	const [cards, setCards] = useState<ICartao[]>([]);
+
 	const [depositValue, setDepositValue] = useState(0);
 	const [showDeposit, setShowDeposit] = useState(false);
 
@@ -122,6 +126,16 @@ const Dashboard: React.FC = () => {
 	const toggleWithdraw = () => {
 		setShowWithdraw(!showWithdraw);
 	};
+
+	// Listar informação do cartão
+	useEffect(() => {
+		const fetchCards = async () => {
+			const cards: any = await cardsList();
+			setCards(cards);
+		};
+
+		fetchCards();
+	}, []);
 
 	//Listar as informações;
 
@@ -213,12 +227,14 @@ const Dashboard: React.FC = () => {
 
 					<div className={styles.userCardDashboard}>
 						<PlanSelected plan="platinum" title="Meu Seas" />
-						<Card
-							cardNumber={2222222222222}
-							holderName={personalData?.nome}
-							expiration="02/02"
-							dataType="platinum"
-						/>
+						{cards && cards.length > 0 ? (
+							<Card
+								cardNumber={cards[0].numeroCartao}
+								holderName={personalData?.nome}
+								expiration={cards[0].vencimento}
+								dataType="platinum"
+							/>
+						) : null}
 					</div>
 				</div>
 

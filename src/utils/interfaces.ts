@@ -6,6 +6,7 @@ export interface ICartao {
 	status?: 'ATIVO' | 'INATIVO';
 	numeroCartao: number;
 }
+
 export interface IChildren {
 	children?: React.ReactNode;
 }
@@ -39,6 +40,12 @@ export interface IRegisterData {
 	};
 }
 
+export interface ICostumer {
+	nome: string;
+	cpf: string;
+	idCliente: number;
+}
+
 export interface IAddress {
 	logradouro: string;
 	cidade: string;
@@ -69,11 +76,11 @@ export interface IConta {
 
 export interface IPagamento {
 	numeroCartao: number;
-	docVendedor: string;
-	itens: {
-		nome: string;
-		valor: number;
-		quantidade: number;
-	};
+	// docVendedor: string;
+	// itens: {
+	// 	nome: string;
+	// 	valor: number;
+	// 	quantidade: number;
+	// };
 	codigoSeguranca: number;
 }
