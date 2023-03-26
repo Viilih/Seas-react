@@ -8,7 +8,8 @@ import styles from './AdminPage.module.scss';
 export const AdminPage = () => {
 	const [customerReport, setCustomerReport] = useState<ICostumerReport>();
 	const [showReport, setShowReport] = useState(false);
-	const { getCostumerReport, disableAccount } = useContext(AdminContext);
+	const { getCostumerReport, disableAccount, reactivateAccount } =
+		useContext(AdminContext);
 
 	const handleCostumerReport = async () => {
 		const cpf = document.querySelector('input')?.value;
@@ -20,12 +21,15 @@ export const AdminPage = () => {
 		setShowReport(!showReport);
 	};
 
+	const handleActivateAccount = async () => {
+		const cpf = document.querySelector('input')?.value;
+		await reactivateAccount(cpf);
+	};
+
 	const handleDisableAccount = async () => {
-		console.log('cliquei');
-		const inputAccountNumber = (
-			document.querySelector('#accountNumber') as HTMLInputElement
-		)?.value;
-		disableAccount(Number(inputAccountNumber));
+		const accountNumberInput: any = document.getElementById('accountNumber');
+		const accountNumber: number = Number(accountNumberInput.value);
+		await disableAccount(accountNumber);
 	};
 
 	return (
@@ -63,7 +67,13 @@ export const AdminPage = () => {
 						>
 							Desativar Conta
 						</button>
-						<button className={styles.btn}> Ativar Conta</button>
+						<button
+							className={styles.btn}
+							onClick={() => handleActivateAccount()}
+						>
+							{' '}
+							Ativar Conta
+						</button>
 					</div>
 					{showReport ? (
 						<div>

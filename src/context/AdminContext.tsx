@@ -5,10 +5,6 @@ import { toastConfig } from '../utils/ToastConfig';
 import { AuthContext } from './AuthContext';
 
 export const AdminContext = createContext({} as any);
-interface IAdminContext {
-	getCostumerReport: (cpf: string) => {};
-	disableAccount: (numeroConta: number) => {};
-}
 
 export const AdminProvider = ({ children }: any) => {
 	const [token, setToken] = useState<string>(
@@ -54,24 +50,42 @@ export const AdminProvider = ({ children }: any) => {
 			);
 
 			if (response.ok) {
-				console.log(response);
-				const data = await response.json();
 				toast.success('Conta desativada com sucesso', toastConfig);
-				// console.log(data);
-
-				return data;
 			} else {
-				console.log(response);
 				toast.error('Algo deu errado', toastConfig);
-				return;
 			}
 		} catch (error) {
 			console.log(error);
 		}
 	};
 
+	const reactivateAccount = async (cpf: string) => {
+		try {
+			const response = await fetch(`${api}/admin/conta/${cpf}/reativar`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: token,
+				},
+			});
+
+			if (response.ok) {
+				toast.success('Conta reativada com sucesso', toastConfig);
+				// const data = await response.json();
+				// return data;
+			} else {
+				toast.error(
+					'Um erro foi encontrado ao tentar reativar sua conta',
+					toastConfig
+				);
+				// return;
+			}
+		} catch (error) {}
+	};
 	return (
-		<AdminContext.Provider value={{ getCostumerReport, disableAccount }}>
+		<AdminContext.Provider
+			value={{ getCostumerReport, disableAccount, reactivateAccount }}
+		>
 			{children}
 		</AdminContext.Provider>
 	);
