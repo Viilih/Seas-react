@@ -11,6 +11,28 @@ export interface IChildren {
   children?: React.ReactNode;
 }
 
+export interface ICostumerReport {
+  numeroConta: number;
+  agencia: number;
+  saldo: number;
+  chequeEspecial: number;
+  status: string;
+  idCliente: number;
+  cpf: string;
+  nome: string;
+  idContato: number;
+  telefone: string;
+  email: string;
+  idEndereco: number;
+  cidade: string;
+  logradouro: string;
+  estado: string;
+  pais: string;
+  cep: string;
+  complemento: string;
+  numero: number;
+}
+
 export interface ILogin {
   login: string;
   senha: string;
@@ -60,7 +82,7 @@ export interface IAddress {
 export interface IContact {
   idContato: number;
   telefone: string;
-  email: string;
+  email?: string;
   idCliente: number;
 }
 

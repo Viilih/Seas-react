@@ -11,7 +11,7 @@ export const UserContact = () => {
   const { createContact } = useContext(ContactContext);
   const [userEmail, setUserEmail] = useState('');
   const [userNumero, setUserNumero] = useState('');
-  const numRegex = `[0-9]{1-5}`;
+  const numRegex = [0 - 9][1 - 5];
 
   const {
     register,
