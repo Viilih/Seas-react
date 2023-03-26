@@ -4,6 +4,7 @@ import { slide as Menu } from 'react-burger-menu';
 import { BsArrowBarRight } from 'react-icons/bs';
 import { IconBase } from 'react-icons/lib';
 import { Link, Route } from 'react-router-dom';
+import { AuthContext } from '../../context/AuthContext';
 
 export const styles = {
 	bmBurgerButton: {
@@ -57,10 +58,12 @@ export const styles = {
 };
 
 export default function Sidebar() {
+	const { logOut } = React.useContext(AuthContext);
+
 	return (
 		<>
 			<Menu styles={styles} className={style.menu}>
-				<a id="home" className="menu-item" href="/">
+				<a id="home" className="menu-item" href="/" onClick={() => logOut()}>
 					Sair da conta
 				</a>
 				<a id="home" className="menu-item" href="/account">
@@ -68,7 +71,7 @@ export default function Sidebar() {
 				</a>
 
 				<div>
-					<a href="/">
+					<a href="/" onClick={() => logOut()}>
 						<BsArrowBarRight className={style.icon} title="sair da conta" />
 					</a>
 				</div>

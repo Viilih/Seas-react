@@ -8,10 +8,11 @@ import { toastConfig } from '../utils/ToastConfig';
 interface IAuthContext {
 	authenticateUser: (login: string, senha: string) => {};
 	getUserInfo: () => Promise<IConta[] | any>;
-	token: string;
+	logOut: () => void;
 	deposit: (valor: number) => Promise<void>;
 	withdraw: (valor: number) => Promise<void>;
 	isAdmin: () => {};
+	token: string;
 }
 export const AuthContext = createContext({} as IAuthContext);
 
@@ -21,6 +22,12 @@ export const AuthProvider = ({ children }: IChildren) => {
 	);
 
 	const navigate = useNavigate();
+
+	const logOut = () => {
+		localStorage.removeItem('token');
+		setToken('');
+		navigate('/');
+	};
 
 	const authenticateUser = async (login: string, senha: string) => {
 		try {
@@ -152,6 +159,7 @@ export const AuthProvider = ({ children }: IChildren) => {
 				deposit,
 				withdraw,
 				token,
+				logOut,
 			}}
 		>
 			{children}
