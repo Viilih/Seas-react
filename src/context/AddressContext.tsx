@@ -27,12 +27,13 @@ export const AddressProvider = ({ children }: any) => {
         },
         body: JSON.stringify(newAddress),
       });
+      console.log(token);
+
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
 
         toast.success('Endereço cadastrado com sucesso!');
-
-        return data as IAddress[];
       }
     } catch (error) {
       throw error;
@@ -42,7 +43,7 @@ export const AddressProvider = ({ children }: any) => {
   // Listar Endereço
   const getAddress = async () => {
     try {
-      const response = await fetch(`${api}/endereco,`, {
+      const response = await fetch(`${api}/endereco/cliente`, {
         method: 'GET',
         headers: {
           Authorization: token,
@@ -52,18 +53,21 @@ export const AddressProvider = ({ children }: any) => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log(data);
-        return data;
+        return data as IAddress[];
+      } else {
+        console.log(response);
+        throw new Error(`Failed to fetch contacts: ${response.statusText}`);
       }
     } catch (error) {
+      console.error(error);
       throw error;
     }
   };
 
   // Apagar Endereço
-  const deleteAddress = async (id: number) => {
+  const deleteAddress = async (idEndereco: number) => {
     try {
-      const response = await fetch(`${api}/endereco/${id}`, {
+      const response = await fetch(`${api}/endereco/${idEndereco}`, {
         method: 'DELETE',
         headers: {
           Authorization: token,
@@ -72,9 +76,7 @@ export const AddressProvider = ({ children }: any) => {
       });
 
       if (response.ok) {
-        const data = await response.json();
         toast.success('Endereço apagado com sucesso!');
-        return data;
       }
     } catch (error) {
       throw error;
