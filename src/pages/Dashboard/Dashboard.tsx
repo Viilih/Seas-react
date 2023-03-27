@@ -123,7 +123,7 @@ const Dashboard: React.FC = () => {
   const [withdrawValue, setWithdrawValue] = useState(0);
   const [showWithdraw, setShowWithdraw] = useState(false);
 
-  const { getTransactions, createTransactions } = useContext(EconomicContext);
+  const { getTransactions } = useContext(EconomicContext);
   const [transactions, setTransactions] = useState<[]>([]);
 
   const [isTransferFormOpen, setIsTransferFormOpen] = useState(false);
@@ -143,6 +143,21 @@ const Dashboard: React.FC = () => {
   const handleCloseTransferList = () => {
     setIsTransferListOpen(false);
   };
+
+  const handleTransaction = async () => {
+    const data = await getTransactions();
+    setTransactions(data);
+  };
+
+  const handleDeposit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setShowDeposit(!showDeposit);
+  };
+  const handleWithDraw = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setShowWithdraw(!showWithdraw);
+  };
+
   const toggleDeposit = () => {
     setShowDeposit(!showDeposit);
   };
@@ -200,56 +215,80 @@ const Dashboard: React.FC = () => {
             </div>
             {showDeposit ? (
               <div className={styles.deposit}>
-                <Inputs
-                  inputName="inputDepositValue"
-                  inputType="number"
-                  isRequired
-                  placeholderText="Informe o vlaor que deseja depositar"
-                  valueInput={depositValue}
-                  handleChange={(currentValue) => {
-                    if (Number(currentValue) >= 0) {
-                      setDepositValue(Number(currentValue));
-                    }
-                  }}
-                />
-                <ButtonSubmit
-                  name="secondary"
-                  text="Depositar valor"
-                  btnType={'submit'}
-                  onClick={() => {
-                    deposit(depositValue);
-                    console.log('Botão clicado');
-                  }}
-                />
+                <form onSubmit={(e) => handleDeposit(e)}>
+                  <h4>Informe um valor para ser depositado em conta:</h4>
+                  <Inputs
+                    inputName="inputDepositValue"
+                    inputType="number"
+                    isRequired
+                    placeholderText="valor"
+                    valueInput={depositValue}
+                    handleChange={(currentValue) => {
+                      if (Number(currentValue) >= 0) {
+                        setDepositValue(Number(currentValue));
+                      }
+                    }}
+                  />
+                  <ButtonSubmit
+                    name="secondary"
+                    text="Depositar valor"
+                    btnType={'submit'}
+                    onClick={() => {
+                      deposit(depositValue);
+                      console.log('Botão clicado');
+                    }}
+                  />
+                </form>
               </div>
             ) : null}
             {showWithdraw ? (
               <div className={styles.deposit}>
-                <Inputs
-                  inputName="inputWithdrawValue"
-                  inputType="number"
-                  isRequired
-                  placeholderText="Informe o valor que deseja sacar"
-                  valueInput={withdrawValue}
-                  handleChange={(currentValue) => {
-                    if (Number(currentValue) >= 0) {
-                      setWithdrawValue(Number(currentValue));
-                    }
-                  }}
-                />
-                <ButtonSubmit
-                  name="secondary"
-                  text="Depositar valor"
-                  btnType={'submit'}
-                  onClick={() => {
-                    withdraw(withdrawValue);
-                    console.log('Botão clicado');
-                  }}
-                />
+                <form action="" onSubmit={(e) => handleWithDraw(e)}>
+                  <h4>Informe um valor para ser sacado da conta:</h4>
+                  <Inputs
+                    inputName="inputWithdrawValue"
+                    inputType="number"
+                    isRequired
+                    placeholderText="Informe o valor que deseja sacar"
+                    valueInput={withdrawValue}
+                    handleChange={(currentValue) => {
+                      if (Number(currentValue) >= 0) {
+                        setWithdrawValue(Number(currentValue));
+                      }
+                    }}
+                  />
+                  <ButtonSubmit
+                    name="secondary"
+                    text="Sacar valor"
+                    btnType={'submit'}
+                    onClick={() => {
+                      withdraw(withdrawValue);
+                      console.log('Botão clicado');
+                    }}
+                  />
+                </form>
               </div>
             ) : null}
           </div>
 
+          <div className={styles.transferencesContainer}>
+            <h1>Acompanhe suas transferências!</h1>
+            <button onClick={handleOpenTransferList}>
+              Listar transferências!
+            </button>
+            <TransferList
+              isOpen={isTransferListOpen}
+              onRequestClose={handleCloseTransferList}
+            />
+            <button onClick={handleOpenTransferForm}>
+              Criar transferência
+            </button>
+            <TransferForm
+              isOpen={isTransferFormOpen}
+              onRequestClose={handleCloseTransferForm}
+            />
+            <ul></ul>
+          </div>
           <div className={styles.userCardDashboard}>
             <PlanSelected plan="platinum" title="Meu Seas" />
             {cards && cards.length > 0 ? (
@@ -261,23 +300,6 @@ const Dashboard: React.FC = () => {
               />
             ) : null}
           </div>
-        </div>
-
-        <div className={styles.transferencesContainer}>
-          <h1>Acompanhe suas transferências!</h1>
-          <button onClick={handleOpenTransferList}>
-            Listar transferências!
-          </button>
-          <TransferList
-            isOpen={isTransferListOpen}
-            onRequestClose={handleCloseTransferList}
-          />
-          <button onClick={handleOpenTransferForm}>Criar transferência</button>
-          <TransferForm
-            isOpen={isTransferFormOpen}
-            onRequestClose={handleCloseTransferForm}
-          />
-          <ul></ul>
         </div>
 
         <div className={styles.searchBarContainer}>

@@ -5,6 +5,7 @@ import { ITransferencia } from '../utils/interfaces';
 
 interface IEconomicContext {
   getTransactions: () => Promise<any>;
+  getTransactionsArray: ITransferencia[];
   createTransactions: (
     numeroContaEnviou: number,
     numeroContaRecebeu: number,
@@ -18,7 +19,9 @@ export const EconomicProvider = ({ children }: any) => {
   const [token, setToken] = useState<string>(
     localStorage.getItem('token') || ''
   );
-
+  const [getTransactionsArray, setGetTransactionsArray] = useState<
+    ITransferencia[]
+  >([]);
   const getTransactions = async () => {
     try {
       const response = await fetch(`${api}/transferencia/conta`, {
@@ -31,6 +34,10 @@ export const EconomicProvider = ({ children }: any) => {
 
       if (response.ok) {
         const data = await response.json();
+        setGetTransactionsArray((prevTransactions) => [
+          ...prevTransactions,
+          ...data,
+        ]);
         return data as ITransferencia[];
       } else {
         toast.error('Erro ao carregar transações!');
@@ -55,11 +62,14 @@ export const EconomicProvider = ({ children }: any) => {
         body: JSON.stringify({ numeroContaEnviou, numeroContaRecebeu, valor }),
       });
 
-      console.log(response);
       if (response.ok) {
-        toast.success('Transferência realizada com sucesso!');
         const data = await response.json();
-        console.log(data);
+        setGetTransactionsArray((prevTransactions) => [
+          ...prevTransactions,
+          data,
+        ]);
+
+        toast.success('Transferência realizada com sucesso!');
       } else {
         toast.error('Erro ao realizar transferência!');
       }
@@ -138,6 +148,7 @@ export const EconomicProvider = ({ children }: any) => {
       value={{
         createTransactions,
         getTransactions,
+        getTransactionsArray,
       }}
     >
       {children}

@@ -5,12 +5,13 @@ $border-radius: 4px;
 .transfer_list {
   background-color: #000;
   width: 40vw;
-  margin: 20vh auto;
+  margin: 10vh auto;
   text-align: center;
   display: flex;
+  height: 80vh;
+  overflow-y: auto;
   flex-direction: column;
   padding: 2rem;
-  height: 50vh;
   border-radius: 20px;
 
   header {

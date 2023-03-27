@@ -12,7 +12,7 @@ interface TransferListProps {
 }
 
 const TransferList = ({ isOpen, onRequestClose }: TransferListProps) => {
-  const { getTransactions } = useContext(EconomicContext);
+  const { getTransactions, getTransactionsArray } = useContext(EconomicContext);
   const [transactions, setTransactions] = useState<ITransferencia[]>([]);
 
   useEffect(() => {
@@ -22,6 +22,7 @@ const TransferList = ({ isOpen, onRequestClose }: TransferListProps) => {
     };
 
     fetchAddresses();
+    console.log(getTransactionsArray);
   }, []);
 
   return (
@@ -46,7 +47,7 @@ const TransferList = ({ isOpen, onRequestClose }: TransferListProps) => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
+          {getTransactionsArray.map((transaction) => (
             <tr key={transaction.idTransferencia}>
               <td>{transaction.numeroContaEnviou}</td>
               <td>{transaction.numeroContaRecebeu}</td>
