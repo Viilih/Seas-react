@@ -51,8 +51,6 @@ const AccountInfo = () => {
 		fetchUserInfo();
 	}, []);
 
-	console.log(userAccount);
-
 	const [cardType, setCardType] = useState<string>('DEBITO');
 	const [cards, setCards] = useState([]);
 	const [valueAccount, setValueAccount] = useState<number>(0);
@@ -72,7 +70,6 @@ const AccountInfo = () => {
 
 		fetchCards();
 	}, []);
-	console.log(cards);
 
 	const [isEditingContact, setIsEditingContact] = useState<boolean>(false);
 
@@ -212,7 +209,10 @@ const AccountInfo = () => {
 															Pagar
 														</button>
 														<button
-															onClick={() => deleteCard(card.numeroCartao)}
+															onClick={() => {
+																console.log(card);
+																deleteCard(card.numeroCartao);
+															}}
 														>
 															Deletar
 														</button>

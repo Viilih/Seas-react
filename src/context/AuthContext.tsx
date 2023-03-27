@@ -96,7 +96,6 @@ export const AuthProvider = ({ children }: IChildren) => {
 					Authorization: token,
 				},
 			});
-			console.log(response);
 			if (response.ok) {
 				const data = await response.json();
 				return data as IConta[];

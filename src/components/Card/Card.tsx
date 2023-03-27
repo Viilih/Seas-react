@@ -19,6 +19,15 @@ const Card: React.FC<ICardProps> = ({
 	expiration,
 	dataType,
 }) => {
+	const dataExpiration = expiration ? new Date(expiration) : undefined;
+
+	const mes = dataExpiration
+		? (dataExpiration.getMonth() + 1).toString().padStart(2, '0')
+		: '';
+	const ano = dataExpiration
+		? dataExpiration.getFullYear().toString().substr(-2)
+		: '';
+
 	return (
 		<div className={styles.cardContainer} data-type={dataType}>
 			<div className={styles.cardHeader}>
@@ -40,7 +49,7 @@ const Card: React.FC<ICardProps> = ({
 			<div className={styles.cardExpiration}>
 				<div>
 					<span>Expiração</span>
-					<span>{expiration}</span>
+					<span>{mes && ano ? `${mes}/${ano}` : ''}</span>
 				</div>
 				<FcSimCardChip size={30} />
 			</div>

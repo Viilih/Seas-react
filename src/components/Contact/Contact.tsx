@@ -27,13 +27,10 @@ const Contact = () => {
 		email: '',
 		telefone: '',
 	});
-	console.log(isEditing);
-
 	useEffect(() => {
 		const fetchContacts = async () => {
 			try {
 				const data = await getContact();
-				console.log(data);
 
 				if (data) {
 					setContacts(data);
