@@ -72,6 +72,7 @@ const AccountInfo = () => {
 
 		fetchCards();
 	}, []);
+	console.log(cards);
 
 	const [isEditingContact, setIsEditingContact] = useState<boolean>(false);
 
@@ -155,15 +156,21 @@ const AccountInfo = () => {
 						<div className={styles.personalInfo}>
 							<div className={styles.cardContent}>
 								<form onSubmit={handleSubmit(onSubmit)}>
+									<h3>Selecione o tipo de cartão a ser adicionado</h3>
 									<select
 										{...register('cardType')}
 										value={cardType}
 										onChange={e => setCardType(e.target.value)}
+										className={styles.select}
 									>
 										<option value="DEBITO">Cartão de Débito</option>
 										<option value="CREDITO">Cartão de Crédito</option>
 									</select>
-									<input type="submit" />
+									<input
+										type="submit"
+										className={styles.submitBtn}
+										value={'Cadastrar'}
+									/>
 								</form>
 								<div>
 									{cards.map((card: any) => (
@@ -177,30 +184,41 @@ const AccountInfo = () => {
 
 											<span>Código de segurança: {card.codigoSeguranca}</span>
 											<br />
-											<span>Limite do cartão: {card.limite}</span>
-											<input
-												type="text"
-												placeholder="Digite o valor a ser pago"
-												value={valueAccount}
-												onChange={e =>
-													setValueAccount(parseFloat(e.target.value))
-												}
-											/>
+											<span>Data de Expedição: {card.dataExpedicao}</span>
 
-											<button onClick={() => deleteCard(card.numeroCartao)}>
-												Deletar
-											</button>
-											<button
-												onClick={() =>
-													addCompra(
-														card.numeroCartao,
-														card.codigoSeguranca,
-														Number(valueAccount)
-													)
-												}
-											>
-												Pagar
-											</button>
+											<div className={styles.cardActionsContainer}>
+												<h4>Digite o valor a ser pago pelo cartão:</h4>
+												<div className={styles.cardActions}>
+													<input
+														type="text"
+														placeholder="Digite o valor a ser pago"
+														value={valueAccount}
+														onChange={e =>
+															setValueAccount(Number(e.target.value))
+														}
+														pattern="^[0-9.]+$"
+													/>
+
+													<div className={styles.btnCardActions}>
+														<button
+															onClick={() =>
+																addCompra(
+																	card.numeroCartao,
+																	card.codigoSeguranca,
+																	Number(valueAccount)
+																)
+															}
+														>
+															Pagar
+														</button>
+														<button
+															onClick={() => deleteCard(card.numeroCartao)}
+														>
+															Deletar
+														</button>
+													</div>
+												</div>{' '}
+											</div>
 										</>
 									))}
 								</div>
