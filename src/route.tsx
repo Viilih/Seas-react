@@ -16,6 +16,7 @@ import { AddressProvider } from './context/AddressContext';
 import { ContactProvider } from './context/ContactContext';
 import { AdminRoute } from './components/AdminRoute/AdminRoute';
 import { AdminProvider } from './context/AdminContext';
+import { EconomicProvider } from './context/EconomicContext';
 
 const Router = () => {
 	return (
@@ -27,20 +28,22 @@ const Router = () => {
 						<ContactProvider>
 							<CardProvider>
 								<AdminProvider>
-									<Routes>
-										<Route path="/" element={<Login />} />
-										<Route path="/register" element={<Register />} />
+									<EconomicProvider>
+										<Routes>
+											<Route path="/" element={<Login />} />
+											<Route path="/register" element={<Register />} />
 
-										<Route element={<PrivateRoute />}>
-											<Route path="/dashboard" element={<Dashboard />} />
-											<Route path="/info" element={<UserInfo />} />
-											<Route path="/address" element={<UserAddress />} />
-											<Route path="/account" element={<AccountInfo />} />
-										</Route>
-										<Route element={<AdminRoute />}>
-											<Route path="/admin" element={<AdminPage />} />
-										</Route>
-									</Routes>
+											<Route element={<PrivateRoute />}>
+												<Route path="/dashboard" element={<Dashboard />} />
+												<Route path="/info" element={<UserInfo />} />
+												<Route path="/address" element={<UserAddress />} />
+												<Route path="/account" element={<AccountInfo />} />
+											</Route>
+											<Route element={<AdminRoute />}>
+												<Route path="/admin" element={<AdminPage />} />
+											</Route>
+										</Routes>
+									</EconomicProvider>
 								</AdminProvider>
 							</CardProvider>
 						</ContactProvider>

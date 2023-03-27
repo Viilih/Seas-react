@@ -2,7 +2,31 @@ import { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../utils/api';
 
-export const EconomicContext = createContext({} as any);
+interface iEconomicContext {
+	getTransactions: () => Promise<any>;
+	createTransactions: (
+		numeroContaEnviou: number,
+		numeroContaRecebeu: number,
+		valor: number
+	) => Promise<any>;
+	getBuys: (numeroCartao: number) => Promise<any>;
+
+	createBuy: (
+		numeroCartao: number,
+		docVendedor: string,
+		itens: [
+			{
+				nome: string;
+				valor: number;
+				quantidade: number;
+			}
+		],
+		codigoSeguranca: number
+	) => Promise<void>;
+	getItem: (idCompra: number) => Promise<any>;
+}
+
+export const EconomicContext = createContext({} as iEconomicContext);
 
 export const EconomicProvider = ({ children }: any) => {
 	const [token, setToken] = useState<string>(
@@ -100,6 +124,8 @@ export const EconomicProvider = ({ children }: any) => {
 					codigoSeguranca,
 				}),
 			});
+
+			console.log(response);
 		} catch (error) {}
 	};
 
@@ -123,4 +149,18 @@ export const EconomicProvider = ({ children }: any) => {
 			console.error(error);
 		}
 	};
+
+	return (
+		<EconomicContext.Provider
+			value={{
+				getItem,
+				getBuys,
+				createBuy,
+				createTransactions,
+				getTransactions,
+			}}
+		>
+			{children}
+		</EconomicContext.Provider>
+	);
 };

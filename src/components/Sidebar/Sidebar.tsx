@@ -69,6 +69,9 @@ export default function Sidebar() {
 				<a id="dashboard" className="menu-item" href="/dashboard">
 					Dashboard
 				</a>
+				<a id="shop" className="menu-item" href="/shop">
+					Seas Shop
+				</a>
 				<a id="home" className="menu-item" href="/" onClick={() => logOut()}>
 					Sair da conta
 				</a>
