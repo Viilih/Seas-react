@@ -63,11 +63,14 @@ export default function Sidebar() {
 	return (
 		<>
 			<Menu styles={styles} className={style.menu}>
+				<a id="personal-info" className="menu-item" href="/account">
+					Minha conta
+				</a>
+				<a id="dashboard" className="menu-item" href="/dashboard">
+					Dashboard
+				</a>
 				<a id="home" className="menu-item" href="/" onClick={() => logOut()}>
 					Sair da conta
-				</a>
-				<a id="home" className="menu-item" href="/account">
-					Minha conta
 				</a>
 
 				<div>

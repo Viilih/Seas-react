@@ -35,7 +35,6 @@ const Contact = () => {
 				console.log(data);
 
 				if (data) {
-					console.log(data);
 					setContacts(data);
 					setContactInfo(data[0]); // definir o primeiro contato como padrão
 				}
