@@ -16,39 +16,42 @@ import { AddressProvider } from './context/AddressContext';
 import { ContactProvider } from './context/ContactContext';
 import { AdminRoute } from './components/AdminRoute/AdminRoute';
 import { AdminProvider } from './context/AdminContext';
+import { EconomicProvider } from './context/EconomicContext';
 
 const Router = () => {
-	return (
-		<BrowserRouter>
-			<ToastContainer />
-			<AuthProvider>
-				<UserProvider>
-					<AddressProvider>
-						<ContactProvider>
-							<CardProvider>
-								<AdminProvider>
-									<Routes>
-										<Route path="/" element={<Login />} />
-										<Route path="/register" element={<Register />} />
+  return (
+    <BrowserRouter>
+      <ToastContainer />
+      <AuthProvider>
+        <UserProvider>
+          <AddressProvider>
+            <ContactProvider>
+              <CardProvider>
+                <EconomicProvider>
+                  <AdminProvider>
+                    <Routes>
+                      <Route path="/" element={<Login />} />
+                      <Route path="/register" element={<Register />} />
 
-										<Route element={<PrivateRoute />}>
-											<Route path="/dashboard" element={<Dashboard />} />
-											<Route path="/info" element={<UserInfo />} />
-											<Route path="/address" element={<UserAddress />} />
-											<Route path="/account" element={<AccountInfo />} />
-										</Route>
-										<Route element={<AdminRoute />}>
-											<Route path="/admin" element={<AdminPage />} />
-										</Route>
-									</Routes>
-								</AdminProvider>
-							</CardProvider>
-						</ContactProvider>
-					</AddressProvider>
-				</UserProvider>
-			</AuthProvider>
-		</BrowserRouter>
-	);
+                      <Route element={<PrivateRoute />}>
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/info" element={<UserInfo />} />
+                        <Route path="/address" element={<UserAddress />} />
+                        <Route path="/account" element={<AccountInfo />} />
+                      </Route>
+                      <Route element={<AdminRoute />}>
+                        <Route path="/admin" element={<AdminPage />} />
+                      </Route>
+                    </Routes>
+                  </AdminProvider>
+                </EconomicProvider>
+              </CardProvider>
+            </ContactProvider>
+          </AddressProvider>
+        </UserProvider>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 };
 
 export default Router;

@@ -56,7 +56,7 @@ export const AddressProvider = ({ children }: any) => {
         return data as IAddress[];
       } else {
         console.log(response);
-        throw new Error(`Failed to fetch contacts: ${response.statusText}`);
+        toast.error('Erro ao carregar transações!');
       }
     } catch (error) {
       console.error(error);

@@ -13,6 +13,8 @@ import { ICartao, IConta } from '../../utils/interfaces';
 import { info } from 'console';
 import { ButtonSubmit } from '../../components/ButtonComponents/Buttons';
 import { EconomicContext } from '../../context/EconomicContext';
+import TransferForm from '../Transferencia/Transferencia';
+import TransferList from '../Transferencia/ListTransaction';
 
 const Dashboard: React.FC = () => {
   const initialTransactionData = [
@@ -124,11 +126,23 @@ const Dashboard: React.FC = () => {
   const { getTransactions, createTransactions } = useContext(EconomicContext);
   const [transactions, setTransactions] = useState<[]>([]);
 
-  const handleTransaction = async () => {
-    const data = await getTransactions();
-    setTransactions(data);
+  const [isTransferFormOpen, setIsTransferFormOpen] = useState(false);
+  const [isTransferListOpen, setIsTransferListOpen] = useState(false);
+
+  const handleOpenTransferForm = () => {
+    setIsTransferFormOpen(true);
   };
 
+  const handleCloseTransferForm = () => {
+    setIsTransferFormOpen(false);
+  };
+  const handleOpenTransferList = () => {
+    setIsTransferListOpen(true);
+  };
+
+  const handleCloseTransferList = () => {
+    setIsTransferListOpen(false);
+  };
   const toggleDeposit = () => {
     setShowDeposit(!showDeposit);
   };
@@ -251,8 +265,18 @@ const Dashboard: React.FC = () => {
 
         <div className={styles.transferencesContainer}>
           <h1>Acompanhe suas transferências!</h1>
-          <button>Listar transferências!</button>
-          <button>Realizar transferências</button>
+          <button onClick={handleOpenTransferList}>
+            Listar transferências!
+          </button>
+          <TransferList
+            isOpen={isTransferListOpen}
+            onRequestClose={handleCloseTransferList}
+          />
+          <button onClick={handleOpenTransferForm}>Criar transferência</button>
+          <TransferForm
+            isOpen={isTransferFormOpen}
+            onRequestClose={handleCloseTransferForm}
+          />
           <ul></ul>
         </div>
 

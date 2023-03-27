@@ -55,6 +55,8 @@ export const ContactProvider = ({ children }: any) => {
       });
 
       if (response.ok) {
+        console.log(token);
+
         const data = await response.json();
         return data as IContact[];
       } else {
@@ -77,7 +79,6 @@ export const ContactProvider = ({ children }: any) => {
           'Content-Type': 'application/json',
         },
       });
-
       if (response.ok) {
         toast.success('Contato deletado com sucesso!');
       } else {
