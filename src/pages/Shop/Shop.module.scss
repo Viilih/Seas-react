@@ -1,7 +1,6 @@
 .shopSection {
 	height: 100%;
 	width: 100%;
-	background-color: red;
 	display: flex;
 	align-items: center;
 	padding: 2rem 0;
@@ -10,7 +9,7 @@
 		height: 80%;
 		margin: 0 auto;
 		width: 80%;
-		background-color: blue;
+		box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 		padding: 1rem 2rem;
 
 		.btns {

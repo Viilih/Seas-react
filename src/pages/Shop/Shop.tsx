@@ -5,7 +5,7 @@ import ProductCard from '../../components/ProductCard/ProductCard';
 import { EconomicContext } from '../../context/EconomicContext';
 
 const Shop = () => {
-	const { getBuys, createBuy } = useContext(EconomicContext);
+	const { createBuy } = useContext(EconomicContext);
 	return (
 		<>
 			<Sidebar />

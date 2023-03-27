@@ -11,6 +11,18 @@ interface IEconomicContext {
 		numeroContaRecebeu: number,
 		valor: number
 	) => Promise<void>;
+	createBuy: (
+		numeroCartao: number,
+		docVendedor: string,
+		itens: [
+			{
+				nome: string;
+				valor: number;
+				quantidade: number;
+			}
+		],
+		codigoSeguranca: number
+	) => Promise<void>;
 }
 
 export const EconomicContext = createContext({} as IEconomicContext);
@@ -174,6 +186,7 @@ export const EconomicProvider = ({ children }: any) => {
 				createTransactions,
 				getTransactions,
 				getTransactionsArray,
+				createBuy,
 			}}
 		>
 			{children}
