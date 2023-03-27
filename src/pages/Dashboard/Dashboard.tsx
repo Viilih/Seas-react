@@ -361,7 +361,6 @@ const Dashboard: React.FC = () => {
 					<div className={styles.transactionHeader}>
 						<h2>Suas Transações</h2>
 						<div>
-							<button>Listar transferências</button>
 							<button
 								data-testid="all-btn"
 								onClick={() => {

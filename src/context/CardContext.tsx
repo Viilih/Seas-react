@@ -40,7 +40,7 @@ export const CardProvider = ({ children }: any) => {
 			});
 			if (response.ok) {
 				const cartao = await response.json();
-				console.log('funcionou');
+				toast.success('Cartão criado com sucesso!');
 				setCartoes([...cartoes, cartao]);
 			} else {
 				console.log('Um erro foi encontrado');

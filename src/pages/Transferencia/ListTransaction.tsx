@@ -21,8 +21,12 @@ const TransferList = ({ isOpen, onRequestClose }: TransferListProps) => {
 			setTransactions(data);
 		};
 
-		fetchAddresses();
-		console.log(getTransactionsArray);
+		const timer = setTimeout(() => {
+			fetchAddresses();
+			console.log(getTransactionsArray);
+		}, 1000);
+
+		return () => clearTimeout(timer);
 	}, []);
 
 	return (

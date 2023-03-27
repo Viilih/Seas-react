@@ -141,6 +141,7 @@ export const EconomicProvider = ({ children }: any) => {
 		itens: [{ nome: string; valor: number; quantidade: number }],
 		codigoSeguranca: number
 	) => {
+		console.log(numeroCartao, docVendedor, itens, codigoSeguranca);
 		try {
 			const response = await fetch(`${api}/compra/cartao`, {
 				method: 'POST',
@@ -155,6 +156,12 @@ export const EconomicProvider = ({ children }: any) => {
 					codigoSeguranca,
 				}),
 			});
+
+			if (response.ok) {
+				toast.success('Compra realizada com sucesso!');
+			} else {
+				toast.error('Erro ao realizar compra!');
+			}
 
 			console.log(response);
 		} catch (error) {}

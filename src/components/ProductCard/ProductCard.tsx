@@ -48,7 +48,7 @@ const ProductCard: React.FC<IProductCardProps> = ({
 	const finalBuy = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const numeroCartao = Number(cardNumber);
-		const docVendedor = 'string qualquer';
+		const docVendedor = 'string';
 		const itens: any = [
 			{ nome: name, valor: selectedProductPrice, quantidade: 1 },
 		];

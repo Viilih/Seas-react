@@ -75,6 +75,8 @@ const AccountInfo = () => {
 
 	const [isEditingName, setIsEditingName] = useState<boolean>(false);
 
+	console.log(cards);
+
 	return (
 		<>
 			<Sidebar />
@@ -181,7 +183,7 @@ const AccountInfo = () => {
 
 											<span>Código de segurança: {card.codigoSeguranca}</span>
 											<br />
-											<span>Data de Expedição: {card.dataExpedicao}</span>
+											<span>Limite do cartão: R${card.limite},00</span>
 
 											<div className={styles.cardActionsContainer}>
 												<h4>Digite o valor a ser pago pelo cartão:</h4>
