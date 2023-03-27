@@ -109,3 +109,10 @@ export interface IPagamento {
   // };
   codigoSeguranca: number;
 }
+
+export interface ITransferencia {
+  numeroContaEnviou: number;
+  numeroContaRecebeu: number;
+  valor: number;
+  idTransferencia?: number;
+}

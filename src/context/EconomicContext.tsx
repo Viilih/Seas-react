@@ -1,7 +1,19 @@
 import { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import { api } from '../utils/api';
+import { ITransferencia } from '../utils/interfaces';
 
+interface IEconomicContext {
+	getTransactions: () => Promise<any>;
+	getTransactionsArray: ITransferencia[];
+	createTransactions: (
+		numeroContaEnviou: number,
+		numeroContaRecebeu: number,
+		valor: number
+	) => Promise<void>;
+}
+
+export const EconomicContext = createContext({} as IEconomicContext);
 interface iEconomicContext {
 	getTransactions: () => Promise<any>;
 	createTransactions: (
@@ -26,13 +38,13 @@ interface iEconomicContext {
 	getItem: (idCompra: number) => Promise<any>;
 }
 
-export const EconomicContext = createContext({} as iEconomicContext);
-
 export const EconomicProvider = ({ children }: any) => {
 	const [token, setToken] = useState<string>(
 		localStorage.getItem('token') || ''
 	);
-
+	const [getTransactionsArray, setGetTransactionsArray] = useState<
+		ITransferencia[]
+	>([]);
 	const getTransactions = async () => {
 		try {
 			const response = await fetch(`${api}/transferencia/conta`, {
@@ -44,9 +56,12 @@ export const EconomicProvider = ({ children }: any) => {
 			});
 
 			if (response.ok) {
-				toast.success('Transações carregadas com sucesso!');
 				const data = await response.json();
-				return data;
+				setGetTransactionsArray(prevTransactions => [
+					...prevTransactions,
+					...data,
+				]);
+				return data as ITransferencia[];
 			} else {
 				toast.error('Erro ao carregar transações!');
 			}
@@ -71,9 +86,13 @@ export const EconomicProvider = ({ children }: any) => {
 			});
 
 			if (response.ok) {
-				toast.success('Transferência realizada com sucesso!');
 				const data = await response.json();
-				return data;
+				setGetTransactionsArray(prevTransactions => [
+					...prevTransactions,
+					data,
+				]);
+
+				toast.success('Transferência realizada com sucesso!');
 			} else {
 				toast.error('Erro ao realizar transferência!');
 			}
@@ -149,15 +168,12 @@ export const EconomicProvider = ({ children }: any) => {
 			console.error(error);
 		}
 	};
-
 	return (
 		<EconomicContext.Provider
 			value={{
-				getItem,
-				getBuys,
-				createBuy,
 				createTransactions,
 				getTransactions,
+				getTransactionsArray,
 			}}
 		>
 			{children}

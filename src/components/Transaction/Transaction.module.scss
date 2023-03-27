@@ -35,10 +35,10 @@
     align-items: center;
     font-size: 20px;
   }
-  .valor[data-color="income"] {
+  .valor[data-color='income'] {
     color: var(--income-dashboard);
   }
-  .valor[data-color="spent"] {
+  .valor[data-color='spent'] {
     color: var(--spent-dashboard);
   }
 }
