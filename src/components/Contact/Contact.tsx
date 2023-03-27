@@ -27,6 +27,7 @@ const Contact = () => {
 		email: '',
 		telefone: '',
 	});
+	console.log(isEditing);
 
 	useEffect(() => {
 		const fetchContacts = async () => {
@@ -79,6 +80,7 @@ const Contact = () => {
 
 	const handleEditContact = () => {
 		setIsEditing(true);
+		console.log(isEditing);
 		setUpdatedContact(contactInfo as IContact);
 	};
 
@@ -92,17 +94,19 @@ const Contact = () => {
 		});
 	};
 
-	const handleUpdateContact = async () => {
+	const handleUpdateContact = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
 		try {
 			if (updatedContact) {
 				const data = await updateContact(
 					updatedContact,
 					updatedContact.idContato
 				);
-				console.log(data);
 				setContactInfo(updatedContact);
-				setIsEditing(false);
 				toast.success('Contato atualizado com sucesso!');
+				setIsEditing(false);
+				window.location.reload();
 			}
 		} catch (error) {
 			console.log(error);
@@ -122,23 +126,46 @@ const Contact = () => {
 
 	return (
 		<>
-			<div className={styles.contactSelect}>
-				<select
-					name="contact"
-					id="contact"
-					onChange={handleSelectChange}
-					defaultValue={contacts.length > 0 ? contacts[0].email : ''}
-				>
-					{contacts.map(contact => (
-						<option key={contact.idContato} value={contact.email}>
-							{contact.email}
-						</option>
-					))}
-				</select>
-				<div className={styles.btns}>
-					<button onClick={handleEditContact}>Adicionar Contato</button>
+			{isEditing ? (
+				<form onSubmit={handleUpdateContact}>
+					<label htmlFor="email">Email:</label>
+					<input
+						type="text"
+						name="email"
+						value={updatedContact.email}
+						onChange={handleInputChange}
+					/>
+					<label htmlFor="telefone">Telefone:</label>
+					<input
+						type="text"
+						name="telefone"
+						value={updatedContact.telefone}
+						onChange={handleInputChange}
+					/>
+					<button type="submit">Salvar</button>
+					<button type="button" onClick={handleCancelEdit}>
+						Cancelar
+					</button>
+				</form>
+			) : (
+				<div className={styles.contactSelect}>
+					<select
+						name="contact"
+						id="contact"
+						onChange={handleSelectChange}
+						defaultValue={contacts.length > 0 ? contacts[0].email : ''}
+					>
+						{contacts.map(contact => (
+							<option key={contact.idContato} value={contact.email}>
+								{contact.email}
+							</option>
+						))}
+					</select>
+					<div className={styles.btns}>
+						<button onClick={handleEditContact}>Editar Contato</button>
+					</div>
 				</div>
-			</div>
+			)}
 			{showForm && (
 				<div className={styles.contactForm}>
 					<form onSubmit={handleSubmit}>
@@ -162,7 +189,7 @@ const Contact = () => {
 								}
 							/>
 						</label>
-						<button type="submit">Salvar</button>
+						<button type="submit">Adicionar</button>
 					</form>
 					<button onClick={() => setShowForm(false)}>Cancelar</button>
 				</div>
@@ -178,7 +205,7 @@ const Contact = () => {
 						<span>{contactInfo.email}</span>
 					</div>
 					<div className={styles.btns}>
-						<button onClick={() => setShowForm(true)}>Edit</button>
+						<button onClick={() => setShowForm(true)}>Adicionar contato</button>
 						<button onClick={handleDeleteContact}>Delete</button>
 					</div>
 				</div>
